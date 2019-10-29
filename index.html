@@ -1,0 +1,43 @@
+<!doctype HTML>
+<html>
+
+<script src="aframe.min.js"></script>
+<script src="aframe-ar.js"></script>
+<script src="aframe-vrml-component.min.js"></script>
+
+<body style='margin : 0px; overflow: hidden;'>
+		
+        <a-scene embedded 
+		vr-mode-ui="enabled: false"
+		arjs='debugUIEnabled: false; 
+		sourceType: webcam;
+		detectionMode: mono_and_matrix; 
+		matrixCodeType: 3x3
+		trackingMethod: best;'
+		renderer="antialias: false; 
+		logarithmicDepthBuffer: true; 
+		colorManagement: true; 
+		sortObjects: true;"
+		>
+				
+		<a-assets>
+			<a-asset-item id="3d-wrl" src="rotax_v01.wrl"></a-asset-item>
+		</a-assets>
+		
+		<a-marker type='pattern' url='ar-chem.patt'>
+			<a-entity
+				vrml="#3d-wrl"
+				scale ="0.15 0.15 0.15"
+				position="0 0.5 0"
+				rotation="-90 0 0"
+				>
+			</a-entity>
+		</a-marker>
+		
+		<a-entity camera></a-entity>
+
+    </a-scene>
+	
+</body>
+
+</html>
