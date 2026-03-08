@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR.Chem - Geometría molecular</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+  </head>
+
+  <body style="margin: 0px; overflow: hidden;">
+    <a-scene 
+      embedded 
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+      
+      <a-assets>
+        <a-asset-item id="mod-agua" src="agua.glb"></a-asset-item>
+        <a-asset-item id="mod-metano" src="metano.glb"></a-asset-item>
+        <a-asset-item id="mod-sf6" src="sf6.glb"></a-asset-item>
+      </a-assets>
+
+      <a-marker type="pattern" url="agua.patt">
+        <a-entity 
+          gltf-model="#mod-agua" 
+          scale="0.5 0.5 0.5" 
+          position="0 0.5 0"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear">
+        </a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="metano.patt">
+        <a-entity 
+          gltf-model="#mod-metano" 
+          scale="0.5 0.5 0.5" 
+          position="0 0.5 0"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear">
+        </a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="sf6.patt">
+        <a-entity 
+          gltf-model="#mod-sf6" 
+          scale="0.5 0.5 0.5" 
+          position="0 0.5 0"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear">
+        </a-entity>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
