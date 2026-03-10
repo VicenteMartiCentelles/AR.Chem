@@ -1,29 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Carga Forzada</title>
+    <title>AR.Chem - Diagnóstico Final</title>
     <meta charset="utf-8">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     
     <style>
-      #debug-log { position: fixed; top: 10px; left: 10px; width: 90%; background: rgba(0,0,0,0.8); color: #0f0; font-family: monospace; font-size: 11px; padding: 10px; z-index: 2000; height: 100px; overflow-y: auto; border: 1px solid #0f0; }
-      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
-      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
+      #debug-log { position: fixed; top: 10px; left: 10px; width: 90%; background: #000; color: #0f0; font-family: monospace; font-size: 11px; padding: 10px; z-index: 2000; height: 120px; overflow-y: auto; border: 2px solid #0f0; }
     </style>
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
-    
-    <div id="debug-log">Consola de Estado:<br></div>
-
-    <div id="ui-container">
-      <div id="info-panel">
-        <span id="mol-name" style="font-weight:bold; color:#1976D2; font-size:1.2em;"></span>
-        <div id="mol-details"></div>
-      </div>
-    </div>
+    <div id="debug-log">Iniciando diagnóstico...<br></div>
 
     <script>
       const logger = document.getElementById('debug-log');
@@ -32,63 +22,51 @@
         logger.scrollTop = logger.scrollHeight;
       }
 
+      // Verificamos si los archivos existen antes de cargarlos
+      async function checkFile(url) {
+        try {
+          const response = await fetch(url, { method: 'HEAD' });
+          if (response.ok) log("✅ Archivo encontrado en servidor: " + url.split('/').pop());
+          else log("❌ Error 404: No existe " + url.split('/').pop());
+        } catch (e) {
+          log("❌ Error de red al buscar " + url.split('/').pop());
+        }
+      }
+
       AFRAME.registerComponent('vrml-loader', {
         schema: { type: 'string' },
         init: function () {
           const el = this.el;
           const fileName = this.data;
+          // Forzamos la ruta absoluta
+          const url = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/' + fileName;
           
-          // Construir URL absoluta para evitar fallos de ruta
-          const url = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/' + fileName;
-          
-          log("Conectando a: " + fileName);
+          checkFile(url);
 
           const loader = new THREE.VRMLLoader();
+          log("Solicitando " + fileName + "...");
           
-          loader.load(
-            url, 
+          loader.load(url, 
             (vrml) => {
-              log("✅ " + fileName + " CARGADO OK");
-              // PyMOL exporta muy pequeño o muy grande. Forzamos escala visible.
-              vrml.scale.set(1.5, 1.5, 1.5); 
+              log("💎 OBJETO RENDERIZADO: " + fileName);
+              vrml.scale.set(2, 2, 2); 
               el.setObject3D('mesh', vrml);
             },
-            (xhr) => {
-              if (xhr.lengthComputable) {
-                log(fileName + ": " + Math.round((xhr.loaded / xhr.total * 100)) + "%");
-              }
-            },
-            (err) => {
-              log("❌ ERROR CRÍTICO: " + fileName);
-              console.error(err);
-            }
+            (xhr) => { log(fileName + ": " + Math.round((xhr.loaded/xhr.total)*100) + "%"); },
+            (err) => { log("❌ FALLO CARGA: " + fileName); }
           );
         }
       });
     </script>
 
-    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
-
+    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
         <a-entity vrml-loader="h2o.wrl"></a-entity>
       </a-marker>
-
       <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
         <a-entity vrml-loader="ch4.wrl"></a-entity>
       </a-marker>
-
       <a-entity camera></a-entity>
     </a-scene>
-
-    <script>
-      // Detección simple para el UI
-      document.querySelectorAll('a-marker').forEach(marker => {
-        marker.addEventListener('markerFound', () => {
-          log("Marcador " + marker.id + " detectado.");
-          document.getElementById('ui-container').style.display = 'block';
-          document.getElementById('mol-name').innerText = marker.id.toUpperCase();
-        });
-      });
-    </script>
   </body>
 </html>
