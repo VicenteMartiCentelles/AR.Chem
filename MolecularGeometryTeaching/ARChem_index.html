@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Laboratorio de Geometría Molecular</title>
+    <title>AR.Chem - Laboratorio VSEPR (7 Moléculas)</title>
     <meta charset="utf-8">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <style>
       #ui { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; 
-            background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; 
-            font-family: sans-serif; text-align: center; border: 2px solid #2196F3; display: none; }
-      .title { font-weight: bold; color: #1976D2; font-size: 1.2em; margin-bottom: 5px; }
+            background: rgba(255,255,255,0.95); padding: 15px; border-radius: 15px; 
+            font-family: sans-serif; text-align: center; border: 3px solid #2196F3; 
+            min-width: 260px; display: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+      .title { font-weight: bold; color: #1976D2; font-size: 1.3em; margin-bottom: 5px; }
+      .geo { color: #555; font-style: italic; margin-bottom: 5px; }
+      .hybrid { color: #e91e63; font-weight: bold; font-size: 0.9em; }
     </style>
   </head>
 
@@ -17,50 +20,102 @@
     
     <div id="ui">
       <div id="mol-name" class="title"></div>
-      <div id="mol-info"></div>
+      <div id="mol-geo" class="geo"></div>
+      <div id="mol-hybrid" class="hybrid"></div>
     </div>
 
-    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
       
-      <a-entity light="type: ambient; intensity: 1.5;"></a-entity>
+      <a-entity light="type: ambient; intensity: 1.2;"></a-entity>
+      <a-entity light="type: directional; intensity: 0.8;" position="1 2 1"></a-entity>
 
       <a-marker type="pattern" url="pattern-h2o.patt" id="marker-h2o">
         <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
-          <a-sphere color="#FF0000" radius="0.4"></a-sphere> <a-sphere position="0.5 0.6 0" radius="0.25" color="#FFFFFF"></a-sphere> <a-sphere position="-0.5 0.6 0" radius="0.25" color="#FFFFFF"></a-sphere> <a-cylinder position="0.25 0.3 0" rotation="0 0 -40" radius="0.05" height="0.7" color="#CCC"></a-cylinder>
-          <a-cylinder position="-0.25 0.3 0" rotation="0 0 40" radius="0.05" height="0.7" color="#CCC"></a-cylinder>
+          <a-sphere color="#FF0000" radius="0.4"></a-sphere>
+          <a-sphere position="0.6 0.5 0" radius="0.22" color="#FFFFFF"></a-sphere>
+          <a-sphere position="-0.6 0.5 0" radius="0.22" color="#FFFFFF"></a-sphere>
+          <a-cylinder position="0.3 0.25 0" rotation="0 0 -50" radius="0.06" height="0.7" color="#AAA"></a-cylinder>
+          <a-cylinder position="-0.3 0.25 0" rotation="0 0 50" radius="0.06" height="0.7" color="#AAA"></a-cylinder>
         </a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-ch4.patt" id="marker-ch4">
         <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
-          <a-sphere color="#333" radius="0.4"></a-sphere> <a-sphere position="0 0.8 0" radius="0.25"></a-sphere> <a-sphere position="0.7 -0.3 0.4" radius="0.25"></a-sphere>
-          <a-sphere position="-0.7 -0.3 0.4" radius="0.25"></a-sphere>
-          <a-sphere position="0 -0.3 -0.8" radius="0.25"></a-sphere>
-          <a-cylinder position="0 0.4 0" radius="0.05" height="0.6" color="#CCC"></a-cylinder>
+          <a-sphere color="#333" radius="0.4"></a-sphere>
+          <a-sphere position="0 0.9 0" radius="0.22"></a-sphere>
+          <a-sphere position="0.85 -0.3 0.4" radius="0.22"></a-sphere>
+          <a-sphere position="-0.85 -0.3 0.4" radius="0.22"></a-sphere>
+          <a-sphere position="0 -0.3 -0.9" radius="0.22"></a-sphere>
+          <a-cylinder position="0 0.45 0" radius="0.06" height="0.9" color="#AAA"></a-cylinder>
+          <a-cylinder position="0.42 -0.15 0.2" rotation="70 45 0" radius="0.06" height="0.9" color="#AAA"></a-cylinder>
+          <a-cylinder position="-0.42 -0.15 0.2" rotation="70 -45 0" radius="0.06" height="0.9" color="#AAA"></a-cylinder>
+          <a-cylinder position="0 -0.15 -0.45" rotation="70 0 0" radius="0.06" height="0.9" color="#AAA"></a-cylinder>
         </a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-nh3.patt" id="marker-nh3">
         <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
-          <a-sphere color="#2196F3" radius="0.4"></a-sphere> <a-sphere position="0.6 -0.4 0.3" radius="0.25"></a-sphere>
-          <a-sphere position="-0.6 -0.4 0.3" radius="0.25"></a-sphere>
-          <a-sphere position="0 -0.4 -0.7" radius="0.25"></a-sphere>
+          <a-sphere color="#2196F3" radius="0.4"></a-sphere>
+          <a-sphere position="0.7 -0.3 0.4" radius="0.22"></a-sphere>
+          <a-sphere position="-0.7 -0.3 0.4" radius="0.22"></a-sphere>
+          <a-sphere position="0 -0.3 -0.8" radius="0.22"></a-sphere>
+          <a-cylinder position="0.35 -0.15 0.2" rotation="70 45 0" radius="0.06" height="0.8" color="#AAA"></a-cylinder>
+          <a-cylinder position="-0.35 -0.15 0.2" rotation="70 -45 0" radius="0.06" height="0.8" color="#AAA"></a-cylinder>
+          <a-cylinder position="0 -0.15 -0.4" rotation="70 0 0" radius="0.06" height="0.8" color="#AAA"></a-cylinder>
         </a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-bf3.patt" id="marker-bf3">
         <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
-          <a-sphere color="#FFB74D" radius="0.35"></a-sphere> <a-sphere position="0 0.8 0" radius="0.3" color="#4CAF50"></a-sphere> <a-sphere position="0.7 -0.4 0" radius="0.3" color="#4CAF50"></a-sphere> <a-sphere position="-0.7 -0.4 0" radius="0.3" color="#4CAF50"></a-sphere> </a-entity>
+          <a-sphere color="#FFB74D" radius="0.35"></a-sphere>
+          <a-sphere position="0 1 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="0.86 -0.5 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="-0.86 -0.5 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-cylinder position="0 0.5 0" radius="0.07" height="1" color="#AAA"></a-cylinder>
+          <a-cylinder position="0.43 -0.25 0" rotation="0 0 -60" radius="0.07" height="1" color="#AAA"></a-cylinder>
+          <a-cylinder position="-0.43 -0.25 0" rotation="0 0 60" radius="0.07" height="1" color="#AAA"></a-cylinder>
+        </a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-pf5.patt" id="marker-pf5">
+        <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
+          <a-sphere color="#FF9800" radius="0.35"></a-sphere>
+          <a-sphere position="0 1.1 0" radius="0.28" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 -1.1 0" radius="0.28" color="#4CAF50"></a-sphere>
+          <a-cylinder position="0 0 0" radius="0.06" height="2.2" color="#AAA"></a-cylinder>
+          <a-sphere position="1 0 0" radius="0.28" color="#4CAF50"></a-sphere>
+          <a-sphere position="-0.5 0 0.86" radius="0.28" color="#4CAF50"></a-sphere>
+          <a-sphere position="-0.5 0 -0.86" radius="0.28" color="#4CAF50"></a-sphere>
+          <a-cylinder position="0.5 0 0" rotation="0 0 90" radius="0.06" height="1" color="#AAA"></a-cylinder>
+          <a-cylinder position="-0.25 0 0.43" rotation="0 120 90" radius="0.06" height="1" color="#AAA"></a-cylinder>
+          <a-cylinder position="-0.25 0 -0.43" rotation="0 240 90" radius="0.06" height="1" color="#AAA"></a-cylinder>
+        </a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-sf6.patt" id="marker-sf6">
         <a-entity position="0 0.5 0" scale="0.35 0.35 0.35">
-          <a-sphere color="#FFEB3B" radius="0.4"></a-sphere> <a-sphere position="0 1 0" radius="0.25" color="#4CAF50"></a-sphere>
-          <a-sphere position="0 -1 0" radius="0.25" color="#4CAF50"></a-sphere>
-          <a-sphere position="1 0 0" radius="0.25" color="#4CAF50"></a-sphere>
-          <a-sphere position="-1 0 0" radius="0.25" color="#4CAF50"></a-sphere>
-          <a-sphere position="0 0 1" radius="0.25" color="#4CAF50"></a-sphere>
-          <a-sphere position="0 0 -1" radius="0.25" color="#4CAF50"></a-sphere>
+          <a-sphere color="#FFEB3B" radius="0.4"></a-sphere>
+          <a-sphere position="0 1.2 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 -1.2 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="1.2 0 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="-1.2 0 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 0 1.2" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 0 -1.2" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-cylinder position="0 0 0" radius="0.06" height="2.4" color="#AAA"></a-cylinder>
+          <a-cylinder position="0 0 0" rotation="0 0 90" radius="0.06" height="2.4" color="#AAA"></a-cylinder>
+          <a-cylinder position="0 0 0" rotation="90 0 0" radius="0.06" height="2.4" color="#AAA"></a-cylinder>
+        </a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-xef4.patt" id="marker-xef4">
+        <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
+          <a-sphere color="#9C27B0" radius="0.4"></a-sphere>
+          <a-sphere position="1 0 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="-1 0 0" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 0 1" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 0 -1" radius="0.3" color="#4CAF50"></a-sphere>
+          <a-cylinder position="0 0 0" rotation="0 0 90" radius="0.06" height="2" color="#AAA"></a-cylinder>
+          <a-cylinder position="0 0 0" rotation="90 0 0" radius="0.06" height="2" color="#AAA"></a-cylinder>
         </a-entity>
       </a-marker>
 
@@ -69,27 +124,31 @@
 
     <script>
       const data = {
-        'marker-h2o': { name: 'Agua (H₂O)', info: 'Geometría: <b>Angular</b><br>Ángulo: ~104.5°' },
-        'marker-ch4': { name: 'Metano (CH₄)', info: 'Geometría: <b>Tetraédrica</b><br>Ángulo: 109.5°' },
-        'marker-nh3': { name: 'Amoníaco (NH₃)', info: 'Geometría: <b>Piramidal Trigonal</b>' },
-        'marker-bf3': { name: 'Trifluoruro de Boro (BF₃)', info: 'Geometría: <b>Trigonal Plana</b>' },
-        'marker-sf6': { name: 'Hexafluoruro (SF₆)', info: 'Geometría: <b>Octaédrica</b>' }
+        'marker-h2o': { name: 'Agua (H₂O)', geo: 'Angular', hybrid: 'Hibridación: sp³' },
+        'marker-ch4': { name: 'Metano (CH₄)', geo: 'Tetraédrica', hybrid: 'Hibridación: sp³' },
+        'marker-nh3': { name: 'Amoníaco (NH₃)', geo: 'Piramidal Trigonal', hybrid: 'Hibridación: sp³' },
+        'marker-bf3': { name: 'Trifluoruro de Boro (BF₃)', geo: 'Trigonal Plana', hybrid: 'Hibridación: sp²' },
+        'marker-pf5': { name: 'Pentafluoruro (PF₅)', geo: 'Bipirámide Trigonal', hybrid: 'Hibridación: sp³d' },
+        'marker-sf6': { name: 'Hexafluoruro (SF₆)', geo: 'Octaédrica', hybrid: 'Hibridación: sp³d²' },
+        'marker-xef4': { name: 'Tetrafluoruro de Xenón (XeF₄)', geo: 'Cuadrada Plana', hybrid: 'Hibridación: sp³d²' }
       };
 
       const ui = document.getElementById('ui');
       const mName = document.getElementById('mol-name');
-      const mInfo = document.getElementById('mol-info');
+      const mGeo = document.getElementById('mol-geo');
+      const mHybrid = document.getElementById('mol-hybrid');
 
       document.querySelectorAll('a-marker').forEach(marker => {
         marker.addEventListener('markerFound', () => {
           const info = data[marker.id];
-          mName.innerText = info.name;
-          mInfo.innerHTML = info.info;
-          ui.style.display = 'block';
+          if(info) {
+            mName.innerText = info.name;
+            mGeo.innerText = 'Geometría: ' + info.geo;
+            mHybrid.innerText = info.hybrid;
+            ui.style.display = 'block';
+          }
         });
-        marker.addEventListener('markerLost', () => {
-          ui.style.display = 'none';
-        });
+        marker.addEventListener('markerLost', () => { ui.style.display = 'none'; });
       });
     </script>
   </body>
