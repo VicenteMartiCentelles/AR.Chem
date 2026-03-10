@@ -74,12 +74,45 @@
         'xef4': { n: 'Tetrafluoruro de Xenón (XeF₄)', d: 'Geometría: <b>Cuadrada Plana</b><br>Ángulo: 90°<br>Hibridación: sp³d²' }
       };
 
-      // Función para cargar los modelos sin bloquear la cámara
-      function loadModels() {
+function loadModels() {
         if (typeof THREE.VRMLLoader === 'undefined') {
-          setTimeout(loadModels, 500); // Reintentar si la librería no ha cargado
+          setTimeout(loadModels, 500);
           return;
         }
+
+        const loader = new THREE.VRMLLoader();
+        Object.keys(molData).forEach(id => {
+          loader.load(`${id}.wrl`, (vrml) => {
+            const el = document.getElementById(`model-${id}`);
+            if (el) {
+              // --- TRUCO DE VISIBILIDAD ---
+              // 1. Forzamos una escala MASIVA (ajusta si es necesario)
+              vrml.scale.set(10, 10, 10); 
+              
+              // 2. Centramos el modelo en su propia caja
+              const box = new THREE.Box3().setFromObject(vrml);
+              const center = box.getCenter(new THREE.Vector3());
+              vrml.position.x += (vrml.position.x - center.x);
+              vrml.position.y += (vrml.position.y - center.y);
+              vrml.position.z += (vrml.position.z - center.z);
+
+              // 3. Aseguramos que el material no sea transparente
+              vrml.traverse(node => {
+                if (node.isMesh) {
+                  node.material.side = THREE.DoubleSide; // Ver por ambos lados
+                  node.material.depthWrite = true;
+                }
+              });
+
+              el.setObject3D('mesh', vrml);
+              console.log("Molécula renderizada y centrada: " + id);
+            }
+          }, 
+          (xhr) => { console.log(id + " " + (xhr.loaded/xhr.total*100) + "%"); },
+          (err) => { console.error("Fallo real de carga en " + id, err); }
+          );
+        });
+      }
 
         const loader = new THREE.VRMLLoader();
         Object.keys(molData).forEach(id => {
