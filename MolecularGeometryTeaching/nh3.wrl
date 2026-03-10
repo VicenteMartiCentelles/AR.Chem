@@ -23,7 +23,8 @@ Transform {
     height 0.509634
    }
    appearance Appearance {
-   material Material { diffuseColor 0.2000 0.2000 1.0000 
+   material Material {
+                       diffuseColor 0.2000 0.2000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
    }
@@ -40,7 +41,8 @@ Transform {
     height 0.509634
    }
    appearance Appearance {
-   material Material { diffuseColor 0.9000 0.9000 0.9000 
+   material Material {
+                       diffuseColor 0.9000 0.9000 0.9000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
    }
@@ -57,7 +59,8 @@ Transform {
     height 0.509490
    }
    appearance Appearance {
-   material Material { diffuseColor 0.2000 0.2000 1.0000 
+   material Material {
+                       diffuseColor 0.2000 0.2000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
    }
@@ -74,7 +77,8 @@ Transform {
     height 0.509490
    }
    appearance Appearance {
-   material Material { diffuseColor 0.9000 0.9000 0.9000 
+   material Material {
+                       diffuseColor 0.9000 0.9000 0.9000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
    }
@@ -91,7 +95,8 @@ Transform {
     height 0.509345
    }
    appearance Appearance {
-   material Material { diffuseColor 0.9000 0.9000 0.9000 
+   material Material {
+                       diffuseColor 0.9000 0.9000 0.9000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
    }
@@ -108,7 +113,8 @@ Transform {
     height 0.509345
    }
    appearance Appearance {
-   material Material { diffuseColor 0.2000 0.2000 1.0000 
+   material Material {
+                       diffuseColor 0.2000 0.2000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
    }
@@ -120,7 +126,8 @@ Transform {
  children Shape {
   geometry Sphere { radius 0.360000 }
   appearance Appearance {
-   material Material { diffuseColor 0.9000 0.9000 0.9000 
+   material Material {
+                       diffuseColor 0.9000 0.9000 0.9000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
   }
@@ -131,7 +138,8 @@ Transform {
  children Shape {
   geometry Sphere { radius 0.465000 }
   appearance Appearance {
-   material Material { diffuseColor 0.2000 0.2000 1.0000 
+   material Material {
+                       diffuseColor 0.2000 0.2000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
   }
@@ -142,7 +150,8 @@ Transform {
  children Shape {
   geometry Sphere { radius 0.360000 }
   appearance Appearance {
-   material Material { diffuseColor 0.9000 0.9000 0.9000 
+   material Material {
+                       diffuseColor 0.9000 0.9000 0.9000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
   }
@@ -153,7 +162,8 @@ Transform {
  children Shape {
   geometry Sphere { radius 0.360000 }
   appearance Appearance {
-   material Material { diffuseColor 0.9000 0.9000 0.9000 
+   material Material {
+                       diffuseColor 0.9000 0.9000 0.9000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
   }
