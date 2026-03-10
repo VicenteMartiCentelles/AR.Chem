@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Debug H2O</title>
+    <title>AR.Chem - Conexión Forzada</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     <style>
       #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
-      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
+      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
     </style>
   </head>
 
@@ -17,7 +17,7 @@
     <div id="ui-container">
       <div id="info-panel">
         <span id="mol-name" style="font-weight:bold; color:#1976D2; font-size:1.2em;">Agua (H₂O)</span>
-        <div id="mol-details">Estado: Buscando archivo...</div>
+        <div id="mol-details">Iniciando sistema...</div>
       </div>
     </div>
 
@@ -30,46 +30,58 @@
     </a-scene>
 
     <script>
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          const loader = new THREE.VRMLLoader();
-          // TRUCO DE SEGURIDAD: Permitir carga desde GitHub
-          loader.setCrossOrigin('anonymous');
-          
-          const details = document.getElementById('mol-details');
-          const cube = document.getElementById('debug-cube');
+      function startApp() {
+        const details = document.getElementById('mol-details');
+        const cube = document.getElementById('debug-cube');
 
-          console.log("Iniciando descarga de h2o.txt...");
-          
-          loader.load('h2o.txt', (vrml) => {
+        // 1. Verificar Librería
+        if (typeof THREE.VRMLLoader === 'undefined') {
+          details.innerHTML = "Error: Librería VRML no cargada";
+          return;
+        }
+
+        const loader = new THREE.VRMLLoader();
+        
+        // 2. Construir URL absoluta para evitar errores de ruta
+        const absolutePath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'h2o.txt';
+        
+        details.innerHTML = "Descargando: h2o.txt...";
+        console.log("Pidiendo archivo a: " + absolutePath);
+
+        loader.load(absolutePath, 
+          (vrml) => {
+            // ÉXITO
             const el = document.getElementById('model-h2o');
+            vrml.scale.set(80, 80, 80); // Escala grande para PyMOL
             
-            // Escala masiva para archivos de PyMOL
-            vrml.scale.set(100, 100, 100); 
-            
-            // Centrar modelo
             const box = new THREE.Box3().setFromObject(vrml);
             const center = box.getCenter(new THREE.Vector3());
             vrml.position.set(-center.x, -center.y, -center.z);
 
             el.setObject3D('mesh', vrml);
             
-            // ÉXITO
             cube.setAttribute('visible', 'false');
-            details.innerHTML = "¡MOLÉCULA CARGADA!";
-            console.log("Carga completada con éxito");
+            details.innerHTML = "<b>¡MOLÉCULA CARGADA!</b>";
           }, 
-          undefined, 
+          (xhr) => {
+            // Progreso
+            if (xhr.lengthComputable) {
+              details.innerHTML = "Cargando: " + Math.round((xhr.loaded / xhr.total) * 100) + "%";
+            }
+          }, 
           (err) => {
+            // FALLO: El cubo cambia a Amarillo/Naranja
+            cube.setAttribute('material', 'color: orange');
+            details.innerHTML = "<span style='color:red'>Error 404: No se encuentra h2o.txt</span>";
             console.error(err);
-            // Si el cubo se pone amarillo, es que el archivo h2o.txt no existe en el servidor
-            cube.setAttribute('material', 'color: yellow');
-            details.innerHTML = "<span style='color:orange'>Error: Archivo h2o.txt no accesible</span>";
-          });
-        }, 3000);
-      });
+          }
+        );
+      }
 
-      // Lógica de visibilidad
+      // Esperar 3 segundos para asegurar que todo el DOM y la cámara estén listos
+      window.addEventListener('load', () => setTimeout(startApp, 3000));
+
+      // Mostrar UI
       document.querySelector('a-marker').addEventListener('markerFound', () => {
         document.getElementById('ui-container').style.display = 'block';
       });
