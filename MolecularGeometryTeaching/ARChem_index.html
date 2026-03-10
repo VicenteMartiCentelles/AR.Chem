@@ -5,22 +5,23 @@
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     
-    <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/VRMLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     
-    <!--
     <script>
       AFRAME.registerComponent('vrml', {
-        schema: {src: {type: 'model'}},
+        schema: { type: 'selector' }, // Cambiado a selector para leer el <a-asset-item>
         init: function () {
           var loader = new THREE.VRMLLoader();
           var el = this.el;
-          loader.load(this.data.src, function (vrml) {
+          // Obtenemos la URL real del archivo desde el asset
+          var url = this.data.getAttribute('src');
+          
+          loader.load(url, function (vrml) {
             el.setObject3D('mesh', vrml);
           });
         }
       });
     </script>
-    -->
     
     <style>
       #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; z-index: 1000; display: none; text-align: center; }
@@ -54,45 +55,40 @@
         <a-asset-item id="wrl-pf5" src="pf5.wrl"></a-asset-item>
         <a-asset-item id="wrl-xef4" src="xef4.wrl"></a-asset-item>
       </a-assets>
-<!--
+
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-entity vrml="#wrl-h2o" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0 0"></a-entity>
+        <a-entity vrml="#wrl-h2o" scale="1 1 1" position="0 0 0" rotation="-90 0 0"></a-entity>
       </a-marker>
-      -->
 
       <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-entity vrml="#wrl-ch4" scale="0.15 0.15 0.15" position="0 0 0" rotation="-90 0 0"></a-entity>
+        <a-entity vrml="#wrl-ch4" scale="1 1 1" position="0 0 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-sf6.patt" id="sf6">
-        <a-entity vrml="#wrl-sf6" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0 0"></a-entity>
+        <a-entity vrml="#wrl-sf6" scale="1 1 1" position="0 0 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-bf3.patt" id="bf3">
-        <a-entity vrml="#wrl-bf3" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0 0"></a-entity>
+        <a-entity vrml="#wrl-bf3" scale="1 1 1" position="0 0 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-nh3.patt" id="nh3">
-        <a-entity vrml="#wrl-nh3" scale="1 1 1" position="0 0 0" rotation="0 0 0"></a-entity>
+        <a-entity vrml="#wrl-nh3" scale="1 1 1" position="0 0 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-pf5.patt" id="pf5">
-        <a-entity vrml="#wrl-pf5" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0 0"></a-entity>
+        <a-entity vrml="#wrl-pf5" scale="1 1 1" position="0 0 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-xef4.patt" id="xef4">
-        <a-entity vrml="#wrl-xef4" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-h2o.patt">
-       <a-box position='0 0.5 0' material='color: red;' scale="0.5 0.5 0.5"></a-box>
+        <a-entity vrml="#wrl-xef4" scale="1 1 1" position="0 0 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-      // Script de interactividad
+      // (Aquí va tu script de interactividad, se mantiene igual al que tenías)
       const uiContainer = document.getElementById('ui-container');
       const infoPanel = document.getElementById('info-panel');
       const revealBtn = document.getElementById('reveal-btn');
@@ -112,11 +108,13 @@
       document.querySelectorAll('a-marker').forEach(marker => {
         marker.addEventListener('markerFound', () => {
           const data = molData[marker.id];
-          nameLabel.innerText = data.n;
-          detailsLabel.innerHTML = data.d;
-          uiContainer.style.display = 'block';
-          infoPanel.style.display = 'none';
-          revealBtn.innerText = "🔍 VER GEOMETRÍA";
+          if(data) {
+            nameLabel.innerText = data.n;
+            detailsLabel.innerHTML = data.d;
+            uiContainer.style.display = 'block';
+            infoPanel.style.display = 'none';
+            revealBtn.innerText = "🔍 VER GEOMETRÍA";
+          }
         });
         marker.addEventListener('markerLost', () => { uiContainer.style.display = 'none'; });
       });
