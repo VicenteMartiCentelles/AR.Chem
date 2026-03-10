@@ -33,31 +33,31 @@
       arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
 
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-entity id="model-h2o" rotation="-90 0 0" scale="2 2 2"></a-entity>
+        <a-entity id="model-h2o" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-entity id="model-ch4" rotation="-90 0 0" scale="2 2 2"></a-entity>
+        <a-entity id="model-ch4" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-sf6.patt" id="sf6">
-        <a-entity id="model-sf6" rotation="-90 0 0" scale="2 2 2"></a-entity>
+        <a-entity id="model-sf6" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-bf3.patt" id="bf3">
-        <a-entity id="model-bf3" rotation="-90 0 0" scale="2 2 2"></a-entity>
+        <a-entity id="model-bf3" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-nh3.patt" id="nh3">
-        <a-entity id="model-nh3" rotation="-90 0 0" scale="2 2 2"></a-entity>
+        <a-entity id="model-nh3" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-pf5.patt" id="pf5">
-        <a-entity id="model-pf5" rotation="-90 0 0" scale="2 2 2"></a-entity>
+        <a-entity id="model-pf5" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-xef4.patt" id="xef4">
-        <a-entity id="model-xef4" rotation="-90 0 0" scale="2 2 2"></a-entity>
+        <a-entity id="model-xef4" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
@@ -71,87 +71,4 @@
         'bf3': { n: 'Trifluoruro de Boro (BF₃)', d: 'Geometría: <b>Trigonal Plana</b><br>Ángulo: 120°<br>Hibridación: sp²' },
         'nh3': { n: 'Amoníaco (NH₃)', d: 'Geometría: <b>Piramidal Trigonal</b><br>Ángulo: ~107°<br>Hibridación: sp³' },
         'pf5': { n: 'Pentafluoruro (PF₅)', d: 'Geometría: <b>Bipirámide Trigonal</b><br>Ángulo: 90° y 120°<br>Hibridación: sp³d' },
-        'xef4': { n: 'Tetrafluoruro de Xenón (XeF₄)', d: 'Geometría: <b>Cuadrada Plana</b><br>Ángulo: 90°<br>Hibridación: sp³d²' }
-      };
-
-function loadModels() {
-        if (typeof THREE.VRMLLoader === 'undefined') {
-          setTimeout(loadModels, 500);
-          return;
-        }
-
-        const loader = new THREE.VRMLLoader();
-        Object.keys(molData).forEach(id => {
-          loader.load(`${id}.wrl`, (vrml) => {
-            const el = document.getElementById(`model-${id}`);
-            if (el) {
-              // --- TRUCO DE VISIBILIDAD ---
-              // 1. Forzamos una escala MASIVA (ajusta si es necesario)
-              vrml.scale.set(10, 10, 10); 
-              
-              // 2. Centramos el modelo en su propia caja
-              const box = new THREE.Box3().setFromObject(vrml);
-              const center = box.getCenter(new THREE.Vector3());
-              vrml.position.x += (vrml.position.x - center.x);
-              vrml.position.y += (vrml.position.y - center.y);
-              vrml.position.z += (vrml.position.z - center.z);
-
-              // 3. Aseguramos que el material no sea transparente
-              vrml.traverse(node => {
-                if (node.isMesh) {
-                  node.material.side = THREE.DoubleSide; // Ver por ambos lados
-                  node.material.depthWrite = true;
-                }
-              });
-
-              el.setObject3D('mesh', vrml);
-              console.log("Molécula renderizada y centrada: " + id);
-            }
-          }, 
-          (xhr) => { console.log(id + " " + (xhr.loaded/xhr.total*100) + "%"); },
-          (err) => { console.error("Fallo real de carga en " + id, err); }
-          );
-        });
-      }
-
-        const loader = new THREE.VRMLLoader();
-        Object.keys(molData).forEach(id => {
-          loader.load(`${id}.wrl`, (vrml) => {
-            const el = document.getElementById(`model-${id}`);
-            if (el) el.setObject3D('mesh', vrml);
-          });
-        });
-      }
-
-      // Iniciar carga tras 2 segundos de encender la cámara
-      window.addEventListener('load', () => setTimeout(loadModels, 2000));
-
-      // Lógica de UI
-      document.querySelectorAll('a-marker').forEach(marker => {
-        marker.addEventListener('markerFound', () => {
-          const data = molData[marker.id];
-          document.getElementById('mol-name').innerText = data.n;
-          document.getElementById('mol-details').innerHTML = data.d;
-          document.getElementById('ui-container').style.display = 'block';
-          document.getElementById('info-panel').style.display = 'none';
-          document.getElementById('reveal-btn').innerText = "🔍 VER GEOMETRÍA";
-        });
-        marker.addEventListener('markerLost', () => {
-          document.getElementById('ui-container').style.display = 'none';
-        });
-      });
-
-      document.getElementById('reveal-btn').addEventListener('click', () => {
-        const panel = document.getElementById('info-panel');
-        const btn = document.getElementById('reveal-btn');
-        if (panel.style.display === 'none') {
-          panel.style.display = 'block';
-          btn.innerText = "❌ OCULTAR INFO";
-        } else {
-          panel.style.display = 'none';
-          btn.innerText = "🔍 VER GEOMETRÍA";
-        }
-      });
-    </script>
-  </body>
-</html>
+        'xef4': { n: 'Tetrafluoruro de Xenón (XeF₄
