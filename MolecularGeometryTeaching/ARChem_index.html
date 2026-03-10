@@ -1,50 +1,95 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Localización de Molécula</title>
+    <title>AR.Chem - Laboratorio de Geometría Molecular</title>
     <meta charset="utf-8">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <style>
+      #ui { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; 
+            background: rgba(255,255,255,0.9); padding: 15px; border-radius: 15px; 
+            font-family: sans-serif; text-align: center; border: 2px solid #2196F3; display: none; }
+      .title { font-weight: bold; color: #1976D2; font-size: 1.2em; margin-bottom: 5px; }
+    </style>
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
-    <div id="status" style="position: fixed; top: 10px; left: 10px; z-index: 1000; background: white; padding: 10px; font-family: sans-serif;">
-      Estado: Buscando h2o.obj...
+    
+    <div id="ui">
+      <div id="mol-name" class="title"></div>
+      <div id="mol-info"></div>
     </div>
 
-    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
       
-      <a-marker type="pattern" url="pattern-h2o.patt" id="marker">
-        
-        <a-box id="debug-cube" position="0 0 0" scale="0.1 0.1 0.1" material="color: red;"></a-box>
+      <a-entity light="type: ambient; intensity: 1.5;"></a-entity>
 
-        <a-entity 
-          id="mol-entidad"
-          obj-model="obj: url(h2o.obj);" 
-          scale="1 1 1"
-          position="0 0 0"
-          material="color: #4CC3D9; shader: flat;">
+      <a-marker type="pattern" url="pattern-h2o.patt" id="marker-h2o">
+        <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
+          <a-sphere color="#FF0000" radius="0.4"></a-sphere> <a-sphere position="0.5 0.6 0" radius="0.25" color="#FFFFFF"></a-sphere> <a-sphere position="-0.5 0.6 0" radius="0.25" color="#FFFFFF"></a-sphere> <a-cylinder position="0.25 0.3 0" rotation="0 0 -40" radius="0.05" height="0.7" color="#CCC"></a-cylinder>
+          <a-cylinder position="-0.25 0.3 0" rotation="0 0 40" radius="0.05" height="0.7" color="#CCC"></a-cylinder>
         </a-entity>
+      </a-marker>
 
+      <a-marker type="pattern" url="pattern-ch4.patt" id="marker-ch4">
+        <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
+          <a-sphere color="#333" radius="0.4"></a-sphere> <a-sphere position="0 0.8 0" radius="0.25"></a-sphere> <a-sphere position="0.7 -0.3 0.4" radius="0.25"></a-sphere>
+          <a-sphere position="-0.7 -0.3 0.4" radius="0.25"></a-sphere>
+          <a-sphere position="0 -0.3 -0.8" radius="0.25"></a-sphere>
+          <a-cylinder position="0 0.4 0" radius="0.05" height="0.6" color="#CCC"></a-cylinder>
+        </a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-nh3.patt" id="marker-nh3">
+        <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
+          <a-sphere color="#2196F3" radius="0.4"></a-sphere> <a-sphere position="0.6 -0.4 0.3" radius="0.25"></a-sphere>
+          <a-sphere position="-0.6 -0.4 0.3" radius="0.25"></a-sphere>
+          <a-sphere position="0 -0.4 -0.7" radius="0.25"></a-sphere>
+        </a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-bf3.patt" id="marker-bf3">
+        <a-entity position="0 0.5 0" scale="0.4 0.4 0.4">
+          <a-sphere color="#FFB74D" radius="0.35"></a-sphere> <a-sphere position="0 0.8 0" radius="0.3" color="#4CAF50"></a-sphere> <a-sphere position="0.7 -0.4 0" radius="0.3" color="#4CAF50"></a-sphere> <a-sphere position="-0.7 -0.4 0" radius="0.3" color="#4CAF50"></a-sphere> </a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-sf6.patt" id="marker-sf6">
+        <a-entity position="0 0.5 0" scale="0.35 0.35 0.35">
+          <a-sphere color="#FFEB3B" radius="0.4"></a-sphere> <a-sphere position="0 1 0" radius="0.25" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 -1 0" radius="0.25" color="#4CAF50"></a-sphere>
+          <a-sphere position="1 0 0" radius="0.25" color="#4CAF50"></a-sphere>
+          <a-sphere position="-1 0 0" radius="0.25" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 0 1" radius="0.25" color="#4CAF50"></a-sphere>
+          <a-sphere position="0 0 -1" radius="0.25" color="#4CAF50"></a-sphere>
+        </a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-      const mol = document.getElementById('mol-entidad');
-      const status = document.getElementById('status');
+      const data = {
+        'marker-h2o': { name: 'Agua (H₂O)', info: 'Geometría: <b>Angular</b><br>Ángulo: ~104.5°' },
+        'marker-ch4': { name: 'Metano (CH₄)', info: 'Geometría: <b>Tetraédrica</b><br>Ángulo: 109.5°' },
+        'marker-nh3': { name: 'Amoníaco (NH₃)', info: 'Geometría: <b>Piramidal Trigonal</b>' },
+        'marker-bf3': { name: 'Trifluoruro de Boro (BF₃)', info: 'Geometría: <b>Trigonal Plana</b>' },
+        'marker-sf6': { name: 'Hexafluoruro (SF₆)', info: 'Geometría: <b>Octaédrica</b>' }
+      };
 
-      // Escuchamos si el modelo carga o falla
-      mol.addEventListener('model-loaded', () => {
-        status.innerHTML = "✅ ¡Molécula cargada con éxito!";
-        status.style.color = "green";
-      });
+      const ui = document.getElementById('ui');
+      const mName = document.getElementById('mol-name');
+      const mInfo = document.getElementById('mol-info');
 
-      mol.addEventListener('model-error', (e) => {
-        status.innerHTML = "❌ Error: No se pudo leer h2o.obj";
-        status.style.color = "red";
-        console.error("Detalle del error:", e);
+      document.querySelectorAll('a-marker').forEach(marker => {
+        marker.addEventListener('markerFound', () => {
+          const info = data[marker.id];
+          mName.innerText = info.name;
+          mInfo.innerHTML = info.info;
+          ui.style.display = 'block';
+        });
+        marker.addEventListener('markerLost', () => {
+          ui.style.display = 'none';
+        });
       });
     </script>
   </body>
