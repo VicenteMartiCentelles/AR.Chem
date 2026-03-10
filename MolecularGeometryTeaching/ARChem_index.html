@@ -1,72 +1,110 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Diagnóstico Final</title>
+    <title>AR.Chem - Geometría Molecular</title>
     <meta charset="utf-8">
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     
     <style>
-      #debug-log { position: fixed; top: 10px; left: 10px; width: 90%; background: #000; color: #0f0; font-family: monospace; font-size: 11px; padding: 10px; z-index: 2000; height: 120px; overflow-y: auto; border: 2px solid #0f0; }
+      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; z-index: 1000; display: none; text-align: center; }
+      #info-panel { background: rgba(255, 255, 255, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
+      #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; }
     </style>
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
-    <div id="debug-log">Iniciando diagnóstico...<br></div>
+    
+    <div id="ui-container">
+      <div id="info-panel">
+        <span id="mol-name" style="font-weight:bold; color:#1976D2; font-size:1.2em;"></span>
+        <div id="mol-details"></div>
+      </div>
+      <button id="reveal-btn">🔍 VER GEOMETRÍA</button>
+    </div>
 
     <script>
-      const logger = document.getElementById('debug-log');
-      function log(msg) {
-        logger.innerHTML += "> " + msg + "<br>";
-        logger.scrollTop = logger.scrollHeight;
-      }
-
-      // Verificamos si los archivos existen antes de cargarlos
-      async function checkFile(url) {
-        try {
-          const response = await fetch(url, { method: 'HEAD' });
-          if (response.ok) log("✅ Archivo encontrado en servidor: " + url.split('/').pop());
-          else log("❌ Error 404: No existe " + url.split('/').pop());
-        } catch (e) {
-          log("❌ Error de red al buscar " + url.split('/').pop());
-        }
-      }
-
-      AFRAME.registerComponent('vrml-loader', {
+      AFRAME.registerComponent('vrml-model', {
         schema: { type: 'string' },
         init: function () {
-          const el = this.el;
-          const fileName = this.data;
-          // Forzamos la ruta absoluta
-          const url = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/')) + '/' + fileName;
-          
-          checkFile(url);
-
-          const loader = new THREE.VRMLLoader();
-          log("Solicitando " + fileName + "...");
-          
-          loader.load(url, 
-            (vrml) => {
-              log("💎 OBJETO RENDERIZADO: " + fileName);
-              vrml.scale.set(2, 2, 2); 
-              el.setObject3D('mesh', vrml);
-            },
-            (xhr) => { log(fileName + ": " + Math.round((xhr.loaded/xhr.total)*100) + "%"); },
-            (err) => { log("❌ FALLO CARGA: " + fileName); }
-          );
+          var el = this.el;
+          var loader = new THREE.VRMLLoader();
+          loader.load(this.data, function (vrml) {
+            // Escalado forzado para PyMOL
+            vrml.scale.set(3, 3, 3); 
+            el.setObject3D('mesh', vrml);
+            console.log("Cargado con éxito: " + el.id);
+          });
         }
       });
     </script>
 
-    <a-scene embedded arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-scene 
+      embedded 
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-entity vrml-loader="h2o.wrl"></a-entity>
+        <a-entity vrml-model="h2o.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
       </a-marker>
+
       <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-entity vrml-loader="ch4.wrl"></a-entity>
+        <a-entity vrml-model="ch4.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
       </a-marker>
+
+      <a-marker type="pattern" url="pattern-sf6.patt" id="sf6">
+        <a-entity vrml-model="sf6.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-nh3.patt" id="nh3">
+        <a-entity vrml-model="nh3.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-bf3.patt" id="bf3">
+        <a-entity vrml-model="bf3.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-pf5.patt" id="pf5">
+        <a-entity vrml-model="pf5.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+      </a-marker>
+
+      <a-marker type="pattern" url="pattern-xef4.patt" id="xef4">
+        <a-entity vrml-model="xef4.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+      </a-marker>
+
       <a-entity camera></a-entity>
     </a-scene>
+
+    <script>
+      const molData = {
+        'h2o': { n: 'Agua (H₂O)', d: 'Geometría: <b>Angular</b>' },
+        'ch4': { n: 'Metano (CH₄)', d: 'Geometría: <b>Tetraédrica</b>' },
+        'sf6': { n: 'Hexafluoruro (SF₆)', d: 'Geometría: <b>Octaédrica</b>' },
+        'nh3': { n: 'Amoníaco (NH₃)', d: 'Geometría: <b>Piramidal Trigonal</b>' },
+        'bf3': { n: 'Trifluoruro de Boro (BF₃)', d: 'Geometría: <b>Trigonal Plana</b>' },
+        'pf5': { n: 'Pentafluoruro (PF₅)', d: 'Geometría: <b>Bipirámide Trigonal</b>' },
+        'xef4': { n: 'Tetrafluoruro de Xenón (XeF₄)', d: 'Geometría: <b>Cuadrada Plana</b>' }
+      };
+
+      document.querySelectorAll('a-marker').forEach(marker => {
+        marker.addEventListener('markerFound', () => {
+          const data = molData[marker.id];
+          if (data) {
+            document.getElementById('mol-name').innerText = data.n;
+            document.getElementById('mol-details').innerHTML = data.d;
+            document.getElementById('ui-container').style.display = 'block';
+          }
+        });
+        marker.addEventListener('markerLost', () => {
+          document.getElementById('ui-container').style.display = 'none';
+        });
+      });
+
+      document.getElementById('reveal-btn').addEventListener('click', () => {
+        const panel = document.getElementById('info-panel');
+        panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
+      });
+    </script>
   </body>
 </html>
