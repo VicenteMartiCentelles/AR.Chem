@@ -1,80 +1,46 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Modelos Moleculares</title>
+    <title>AR.Chem</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     
-    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
-    
-    <style>
-      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
-      #info-panel { background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
-      #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; }
-    </style>
+    <script async src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
     
-    <div id="ui-container">
-      <div id="info-panel">
-        <span id="mol-name" style="font-weight:bold; color:#1976D2; font-size:1.2em;"></span>
-        <div id="mol-details"></div>
-      </div>
-      <button id="reveal-btn">🔍 VER GEOMETRÍA</button>
-    </div>
-
-    <script>
-      // Componente optimizado para no interferir con la webcam
-      AFRAME.registerComponent('vrml-loader', {
-        schema: { type: 'string' },
-        init: function () {
-          var el = this.el;
-          var url = this.data;
-          
-          // Solo intentamos cargar el modelo una vez que la escena esté lista
-          el.sceneEl.addEventListener('loaded', function() {
-            var loader = new THREE.VRMLLoader();
-            loader.load(url, function (vrml) {
-              vrml.scale.set(5, 5, 5); // Escala PyMOL aumentada
-              el.setObject3D('mesh', vrml);
-              console.log("Molecula cargada: " + url);
-            });
-          });
-        }
-      });
-    </script>
-
     <a-scene 
       embedded 
-      vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;">
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+      vr-mode-ui="enabled: false">
 
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-entity vrml-loader="h2o.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-entity vrml-loader="ch4.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-sf6.patt" id="sf6">
-        <a-entity vrml-loader="sf6.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+        <a-box position="0 0.5 0" material="opacity: 0.5; color: red;"></a-box>
+        
+        <a-entity id="mol-h2o" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-      // Lógica de UI simplificada
-      const molData = {
-        'h2o': { n: 'Agua (H₂O)', d: 'Geometría: <b>Angular</b>' },
-        'ch4': { n: 'Metano (CH₄)', d: 'Geometría: <b>Tetraédrica</b>' },
-        'sf6': { n: 'Hexafluoruro (SF₆)', d: 'Geometría: <b>Octaédrica</b>' }
-      };
-
-      document.querySelectorAll('a-marker').forEach(marker => {
-        marker.addEventListener('markerFound', () => {
+      // Lógica de carga manual para que no rompa la cámara al inicio
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          if (typeof THREE.VRMLLoader !== 'undefined') {
+            const loader = new THREE.VRMLLoader();
+            loader.load('h2o.wrl', (vrml) => {
+              vrml.scale.set(2, 2, 2);
+              document.getElementById('mol-h2o').setObject3D('mesh', vrml);
+              console.log("VRML cargado manualmente");
+            });
+          }
+        }, 3000); // Esperamos 3 segundos con la cámara ya encendida
+      });
+    </script>
+  </body>
+</html>
