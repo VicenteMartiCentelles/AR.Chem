@@ -1,101 +1,51 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Teaching Version</title>
+    <title>AR.Chem - Geometría Molecular VRML</title>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.rawgit.com/mrdoob/three.js/master/examples/js/loaders/VRMLLoader.js"></script>
     
     <style>
-      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
-      #info-panel { background: rgba(255, 255, 255, 0.95); color: #333; padding: 15px; border-radius: 10px; margin-bottom: 10px; display: none; font-family: sans-serif; }
-      #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; }
+      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; z-index: 1000; display: none; text-align: center; }
+      #info-panel { background: rgba(255, 255, 255, 0.95); color: #333; padding: 15px; border-radius: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: none; font-family: sans-serif; }
+      #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; }
+      .mol-title { color: #1976D2; font-size: 1.3em; display: block; margin-bottom: 5px; font-weight: bold; }
     </style>
   </head>
-<!--
+
   <body style="margin: 0px; overflow: hidden;">
+    
     <div id="ui-container">
       <div id="info-panel">
-        <span id="mol-name" style="color: #1976D2; font-size: 1.3em; font-weight: bold;"></span>
+        <span id="mol-name" class="mol-title"></span>
         <div id="mol-details"></div>
       </div>
       <button id="reveal-btn">🔍 VER GEOMETRÍA</button>
     </div>
-  -->
 
-    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
+    <a-scene 
+      embedded 
+      vr-mode-ui="enabled: false"
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
       
+      <a-assets>
+        <a-asset-item id="wrl-h2o" src="h2o.wrl"></a-asset-item>
+        <a-asset-item id="wrl-ch4" src="ch4.wrl"></a-asset-item>
+        <a-asset-item id="wrl-sf6" src="sf6.wrl"></a-asset-item>
+        <a-asset-item id="wrl-bf3" src="bf3.wrl"></a-asset-item>
+        <a-asset-item id="wrl-nh3" src="nh3.wrl"></a-asset-item>
+        <a-asset-item id="wrl-pf5" src="pf5.wrl"></a-asset-item>
+        <a-asset-item id="wrl-xef4" src="xef4.wrl"></a-asset-item>
+      </a-assets>
+
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-entity vrml="src: h2o.wrl" scale="0.1 0.1 0.1" rotation="-90 0 0"></a-entity>
+        <a-entity vrml="#wrl-h2o" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-entity vrml="src: ch4.wrl" scale="0.1 0.1 0.1" rotation="-90 0 0"></a-entity>
+        <a-entity vrml="#wrl-ch4" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-sf6.patt" id="sf6">
-        <a-entity vrml="src: sf6.wrl" scale="0.1 0.1 0.1" rotation="-90 0 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-bf3.patt" id="bf3">
-        <a-entity vrml="src: bf3.wrl" scale="0.1 0.1 0.1" rotation="-90 0 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-nh3.patt" id="nh3">
-        <a-entity vrml="src: nh3.wrl" scale="0.1 0.1 0.1" rotation="-90 0 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-pf5.patt" id="pf5">
-        <a-entity vrml="src: pf5.wrl" scale="0.1 0.1 0.1" rotation="-90 0 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-xef4.patt" id="xef4">
-        <a-entity vrml="src: cage_qr.wrl" scale="0.1 0.1 0.1" rotation="-90 0 0"></a-entity>
-      </a-marker>
-      
-      
-      <a-entity camera></a-entity>
-    </a-scene>
-<!--
-<script>
-      const uiContainer = document.getElementById('ui-container');
-      const infoPanel = document.getElementById('info-panel');
-      const revealBtn = document.getElementById('reveal-btn');
-      const nameLabel = document.getElementById('mol-name');
-      const detailsLabel = document.getElementById('mol-details');
-
-      const molData = {
-        'h2o': { n: 'Agua (H₂O)', d: 'Geometría: <b>Angular</b><br>Ángulo: ~104.5°<br>Hibridación: sp³' },
-        'ch4': { n: 'Metano (CH₄)', d: 'Geometría: <b>Tetraédrica</b><br>Ángulo: 109.5°<br>Hibridación: sp³' },
-        'sf6': { n: 'Hexafluoruro (SF₆)', d: 'Geometría: <b>Octaédrica</b><br>Ángulo: 90°<br>Hibridación: sp³d²' },
-        'bf3': { n: 'Trifluoruro de Boro (BF₃)', d: 'Geometría: <b>Trigonal Plana</b><br>Ángulo: 120°<br>Hibridación: sp²' },
-        'nh3': { n: 'Amoníaco (NH₃)', d: 'Geometría: <b>Piramidal Trigonal</b><br>Ángulo: ~107°<br>Hibridación: sp³' },
-        'pf5': { n: 'Pentafluoruro (PF₅)', d: 'Geometría: <b>Bipirámide Trigonal</b><br>Ángulo: 90° y 120°<br>Hibridación: sp³d' },
-        'xef4': { n: 'Tetrafluoruro de Xenón (XeF₄)', d: 'Geometría: <b>Cuadrada Plana</b><br>Ángulo: 90°<br>Hibridación: sp³d²' }
-      };
-
-      document.querySelectorAll('a-marker').forEach(marker => {
-        marker.addEventListener('markerFound', () => {
-          const data = molData[marker.id];
-          nameLabel.innerText = data.n;
-          detailsLabel.innerHTML = data.d;
-          uiContainer.style.display = 'block';
-          infoPanel.style.display = 'none';
-          revealBtn.innerText = "🔍 VER GEOMETRÍA";
-        });
-        marker.addEventListener('markerLost', () => { uiContainer.style.display = 'none'; });
-      });
-
-      revealBtn.addEventListener('click', () => {
-        if (infoPanel.style.display === 'none') {
-          infoPanel.style.display = 'block';
-          revealBtn.innerText = "❌ OCULTAR INFO";
-        } else {
-          infoPanel.style.display = 'none';
-          revealBtn.innerText = "🔍 VER GEOMETRÍA";
-        }
-      });
-    </script>
-    -->
-  </body>
-</html>
+        <a-entity vrml="#wrl-sf6" scale="0.15 0.15 0.15" position="0 0.5 0" rotation="-90 0
