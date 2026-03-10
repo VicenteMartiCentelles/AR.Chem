@@ -1,0 +1,16 @@
+HEADER
+REMARK Spartan'20 exported M0005
+HETATM    1  P   UNK  0001       0.000   1.001   0.419
+HETATM    2  F   UNK  0001       0.000   1.001  -1.144
+HETATM    3  F   UNK  0001       0.000  -0.641   0.419
+HETATM    4  F   UNK  0001      -1.353   1.001   1.200
+HETATM    5  F   UNK  0001       0.000   2.643   0.419
+HETATM    6  F   UNK  0001       1.353   1.001   1.200
+CONECT    1    2    3    4    5
+CONECT    1    6
+CONECT    2    1
+CONECT    3    1
+CONECT    4    1
+CONECT    5    1
+CONECT    6    1
+END
