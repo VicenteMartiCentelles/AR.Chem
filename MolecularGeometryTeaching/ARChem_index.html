@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Fix Librerías</title>
+    <title>AR.Chem - Fix Final</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/build/three.min.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
-    
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/three@0.125.0/examples/js/loaders/VRMLLoader.js"></script>
 
     <style>
       #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
@@ -40,40 +37,56 @@
         const details = document.getElementById('mol-details');
         const cube = document.getElementById('debug-cube');
 
-        // Verificamos si THREE y VRMLLoader están en memoria
-        if (typeof THREE.VRMLLoader === 'undefined') {
-          details.innerHTML = "Reintentando cargar librería...";
-          setTimeout(startApp, 1000);
+        // Intentamos obtener el objeto THREE desde A-Frame si no está global
+        const THREE_AFRAME = window.AFRAME.THREE;
+
+        if (typeof THREE_AFRAME.VRMLLoader === 'undefined' && typeof THREE.VRMLLoader === 'undefined') {
+          details.innerHTML = "Error de compatibilidad. Prueba en Chrome/Safari.";
           return;
         }
 
-        const loader = new THREE.VRMLLoader();
-        const absolutePath = window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + 'h2o.txt';
+        // Usamos el cargador (sea global o de A-Frame)
+        const LoaderClass = THREE.VRMLLoader || THREE_AFRAME.VRMLLoader;
+        const loader = new LoaderClass();
         
-        details.innerHTML = "Conectando con h2o.txt...";
+        // Ruta del archivo
+        const fileName = 'h2o.txt';
+        details.innerHTML = "Buscando: " + fileName;
 
-        loader.load(absolutePath, 
+        loader.load(fileName, 
           (vrml) => {
             const el = document.getElementById('model-h2o');
-            vrml.scale.set(80, 80, 80); 
+            vrml.scale.set(100, 100, 100); // Super escala para PyMOL
             
-            const box = new THREE.Box3().setFromObject(vrml);
-            const center = box.getCenter(new THREE.Vector3());
+            const box = new THREE_AFRAME.Box3().setFromObject(vrml);
+            const center = box.getCenter(new THREE_AFRAME.Vector3());
             vrml.position.set(-center.x, -center.y, -center.z);
 
             el.setObject3D('mesh', vrml);
             cube.setAttribute('visible', 'false');
-            details.innerHTML = "<b>¡SISTEMA OK!</b><br>Geometría cargada.";
+            details.innerHTML = "<b>¡SISTEMA OK!</b><br>Molécula cargada.";
           }, 
-          undefined, 
+          (xhr) => {
+            const porc = Math.round((xhr.loaded / xhr.total) * 100);
+            details.innerHTML = "Cargando: " + (isNaN(porc) ? "..." : porc + "%");
+          }, 
           (err) => {
             cube.setAttribute('material', 'color: orange');
-            details.innerHTML = "Error 404: No se encuentra h2o.txt";
+            details.innerHTML = "No se pudo leer h2o.txt";
+            console.error(err);
           }
         );
       }
 
-      window.addEventListener('load', () => setTimeout(startApp, 2000));
+      // Esperar a que A-Frame esté listo
+      window.addEventListener('load', () => {
+        const scene = document.querySelector('a-scene');
+        if (scene.hasLoaded) {
+          setTimeout(startApp, 2000);
+        } else {
+          scene.addEventListener('loaded', () => setTimeout(startApp, 2000));
+        }
+      });
 
       document.querySelector('a-marker').addEventListener('markerFound', () => {
         document.getElementById('ui-container').style.display = 'block';
