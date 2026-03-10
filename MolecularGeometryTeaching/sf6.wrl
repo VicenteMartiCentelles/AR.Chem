@@ -24,7 +24,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.9000 0.7750 0.2500 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -43,7 +42,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -62,7 +60,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.9000 0.7750 0.2500 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -81,7 +78,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -100,7 +96,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.9000 0.7750 0.2500 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -119,7 +114,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -138,7 +132,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.9000 0.7750 0.2500 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -157,7 +150,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -176,7 +168,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.9000 0.7750 0.2500 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -195,7 +186,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -214,7 +204,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.9000 0.7750 0.2500 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -233,7 +222,6 @@ Transform {
    }
    appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -247,7 +235,6 @@ Transform {
   geometry Sphere { radius 0.540000 }
   appearance Appearance {
    material Material {
- 
  diffuseColor 0.9000 0.7750 0.2500 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -260,7 +247,6 @@ Transform {
   geometry Sphere { radius 0.441000 }
   appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -273,7 +259,6 @@ Transform {
   geometry Sphere { radius 0.441000 }
   appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -286,7 +271,6 @@ Transform {
   geometry Sphere { radius 0.441000 }
   appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -299,7 +283,6 @@ Transform {
   geometry Sphere { radius 0.441000 }
   appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -312,7 +295,6 @@ Transform {
   geometry Sphere { radius 0.441000 }
   appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
@@ -325,7 +307,6 @@ Transform {
   geometry Sphere { radius 0.441000 }
   appearance Appearance {
    material Material {
- 
  diffuseColor 0.7020 1.0000 1.0000 
                        specularColor 0.8 0.8 0.8 
                        shininess 0.8 }
