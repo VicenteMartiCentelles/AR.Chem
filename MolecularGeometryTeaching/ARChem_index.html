@@ -1,114 +1,92 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Debug Mode</title>
+    <title>AR.Chem - Carga Forzada</title>
     <meta charset="utf-8">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     
     <style>
-      #debug-log { 
-        position: fixed; top: 10px; left: 10px; width: 90%; 
-        background: rgba(0,0,0,0.7); color: #0f0; 
-        font-family: monospace; font-size: 10px; 
-        padding: 5px; z-index: 2000; height: 80px; overflow-y: auto;
-      }
+      #debug-log { position: fixed; top: 10px; left: 10px; width: 90%; background: rgba(0,0,0,0.8); color: #0f0; font-family: monospace; font-size: 11px; padding: 10px; z-index: 2000; height: 100px; overflow-y: auto; border: 1px solid #0f0; }
       #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
       #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
-      #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; }
     </style>
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
     
-    <div id="debug-log">Iniciando sistema...<br></div>
+    <div id="debug-log">Consola de Estado:<br></div>
 
     <div id="ui-container">
       <div id="info-panel">
         <span id="mol-name" style="font-weight:bold; color:#1976D2; font-size:1.2em;"></span>
         <div id="mol-details"></div>
       </div>
-      <button id="reveal-btn">🔍 VER GEOMETRÍA</button>
     </div>
 
     <script>
+      const logger = document.getElementById('debug-log');
       function log(msg) {
-        const d = document.getElementById('debug-log');
-        d.innerHTML += msg + "<br>";
-        d.scrollTop = d.scrollHeight;
+        logger.innerHTML += "> " + msg + "<br>";
+        logger.scrollTop = logger.scrollHeight;
       }
 
       AFRAME.registerComponent('vrml-loader', {
         schema: { type: 'string' },
         init: function () {
-          var el = this.el;
-          var url = this.data;
+          const el = this.el;
+          const fileName = this.data;
           
-          log("Intentando cargar: " + url);
+          // Construir URL absoluta para evitar fallos de ruta
+          const url = window.location.href.substring(0, window.location.href.lastIndexOf('/')) + '/' + fileName;
+          
+          log("Conectando a: " + fileName);
 
-          // Forzamos la carga manual con THREE.js
-          var loader = new THREE.VRMLLoader();
+          const loader = new THREE.VRMLLoader();
           
           loader.load(
             url, 
-            function (vrml) {
-              log("✅ ÉXITO: " + url + " cargado.");
-              // Ajuste de escala forzado para PyMOL
-              vrml.scale.set(1, 1, 1); 
+            (vrml) => {
+              log("✅ " + fileName + " CARGADO OK");
+              // PyMOL exporta muy pequeño o muy grande. Forzamos escala visible.
+              vrml.scale.set(1.5, 1.5, 1.5); 
               el.setObject3D('mesh', vrml);
             },
-            function (xhr) {
-              // Progreso de carga
-              if(xhr.total > 0) {
-                let p = Math.round(xhr.loaded / xhr.total * 100);
-                if(p % 25 === 0) log(url + ": " + p + "%");
+            (xhr) => {
+              if (xhr.lengthComputable) {
+                log(fileName + ": " + Math.round((xhr.loaded / xhr.total * 100)) + "%");
               }
             },
-            function (error) {
-              log("❌ ERROR en " + url + ": " + error.message);
-              console.error(error);
+            (err) => {
+              log("❌ ERROR CRÍTICO: " + fileName);
+              console.error(err);
             }
           );
         }
       });
     </script>
 
-    <a-scene 
-      embedded 
-      vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
 
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-entity vrml-loader="h2o.wrl" position="0 0 0" rotation="-90 0 0"></a-entity>
+        <a-entity vrml-loader="h2o.wrl"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-entity vrml-loader="ch4.wrl" position="0 0 0" rotation="-90 0 0"></a-entity>
+        <a-entity vrml-loader="ch4.wrl"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-      // Lógica de detección de marcadores
-      const molData = {
-        'h2o': { n: 'Agua (H₂O)', d: 'Geometría: <b>Angular</b>' },
-        'ch4': { n: 'Metano (CH₄)', d: 'Geometría: <b>Tetraédrica</b>' }
-      };
-
+      // Detección simple para el UI
       document.querySelectorAll('a-marker').forEach(marker => {
         marker.addEventListener('markerFound', () => {
-          log("Marcador detectado: " + marker.id);
-          const data = molData[marker.id];
-          if (data) {
-            document.getElementById('mol-name').innerText = data.n;
-            document.getElementById('mol-details').innerHTML = data.d;
-            document.getElementById('ui-container').style.display = 'block';
-          }
-        });
-        marker.addEventListener('markerLost', () => {
-          document.getElementById('ui-container').style.display = 'none';
+          log("Marcador " + marker.id + " detectado.");
+          document.getElementById('ui-container').style.display = 'block';
+          document.getElementById('mol-name').innerText = marker.id.toUpperCase();
         });
       });
     </script>
