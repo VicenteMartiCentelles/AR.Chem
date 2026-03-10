@@ -1,115 +1,77 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Test Final H2O</title>
+    <title>AR.Chem - Debug H2O</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-    <script async src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     <style>
-      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; z-index: 1000; display: none; text-align: center; }
-      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-      #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; }
+      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
+      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
     </style>
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
-    
     <div id="ui-container">
       <div id="info-panel">
         <span id="mol-name" style="font-weight:bold; color:#1976D2; font-size:1.2em;">Agua (H₂O)</span>
-        <div id="mol-details">Cargando geometría...</div>
+        <div id="mol-details">Estado: Buscando archivo...</div>
       </div>
-      <button id="reveal-btn">🔍 VER GEOMETRÍA</button>
     </div>
 
-    <a-scene 
-      embedded 
-      vr-mode-ui="enabled: false" 
-      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
-
-      <a-entity light="type: ambient; intensity: 1.5;"></a-entity>
-      <a-entity light="type: directional; intensity: 1;" position="1 2 1"></a-entity>
-
+    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-box id="debug-cube" position="0 0.1 0" scale="0.2 0.2 0.2" material="color: red; opacity: 0.7"></a-box>
-        
+        <a-box id="debug-cube" position="0 0 0" scale="0.15 0.15 0.15" material="color: red; opacity: 0.8"></a-box>
         <a-entity id="model-h2o" rotation="-90 0 0"></a-entity>
       </a-marker>
-
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-      function initModels() {
-        // 1. Verificar que el cargador de Three.js esté listo
-        if (typeof THREE.VRMLLoader === 'undefined') {
-          setTimeout(initModels, 500);
-          return;
-        }
-
-        const loader = new THREE.VRMLLoader();
-        const cube = document.getElementById('debug-cube');
-        
-        // Intentamos cargar h2o.txt (tu archivo VRML renombrado)
-        loader.load('h2o.txt', (vrml) => {
-          const el = document.getElementById('model-h2o');
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loader = new THREE.VRMLLoader();
+          // TRUCO DE SEGURIDAD: Permitir carga desde GitHub
+          loader.setCrossOrigin('anonymous');
           
-          if (el) {
-            // Ajustes de escala y centrado para PyMOL
-            vrml.scale.set(50, 50, 50); 
+          const details = document.getElementById('mol-details');
+          const cube = document.getElementById('debug-cube');
+
+          console.log("Iniciando descarga de h2o.txt...");
+          
+          loader.load('h2o.txt', (vrml) => {
+            const el = document.getElementById('model-h2o');
             
+            // Escala masiva para archivos de PyMOL
+            vrml.scale.set(100, 100, 100); 
+            
+            // Centrar modelo
             const box = new THREE.Box3().setFromObject(vrml);
             const center = box.getCenter(new THREE.Vector3());
             vrml.position.set(-center.x, -center.y, -center.z);
 
-            vrml.traverse(node => {
-              if (node.isMesh) {
-                node.material.side = THREE.DoubleSide;
-                // Asegurar que el color sea brillante
-                if(node.material.color) node.material.color.multiplyScalar(1.5);
-              }
-            });
-
             el.setObject3D('mesh', vrml);
             
-            // ÉXITO: El cubo desaparece
-            if (cube) cube.setAttribute('visible', 'false');
-            document.getElementById('mol-details').innerHTML = "Geometría: <b>Angular</b><br>¡Modelo cargado!";
-          }
-        }, 
-        (xhr) => {
-          console.log("Progreso: " + (xhr.loaded / xhr.total * 100) + "%");
-        }, 
-        (err) => {
-          console.error("Error al cargar h2o.txt", err);
-          // ERROR: El cubo se vuelve verde (archivo no encontrado o bloqueado)
-          if (cube) cube.setAttribute('material', 'color: green');
-          document.getElementById('mol-details').innerHTML = "<span style='color:red'>Error: No se encontró h2o.txt</span>";
-        });
-      }
-
-      // Esperar 2 segundos para dar tiempo a la cámara y a las librerías
-      window.addEventListener('load', () => setTimeout(initModels, 2000));
-
-      // Mostrar/Ocultar UI al encontrar marcador
-      const marker = document.querySelector('a-marker');
-      const ui = document.getElementById('ui-container');
-
-      marker.addEventListener('markerFound', () => {
-        ui.style.display = 'block';
+            // ÉXITO
+            cube.setAttribute('visible', 'false');
+            details.innerHTML = "¡MOLÉCULA CARGADA!";
+            console.log("Carga completada con éxito");
+          }, 
+          undefined, 
+          (err) => {
+            console.error(err);
+            // Si el cubo se pone amarillo, es que el archivo h2o.txt no existe en el servidor
+            cube.setAttribute('material', 'color: yellow');
+            details.innerHTML = "<span style='color:orange'>Error: Archivo h2o.txt no accesible</span>";
+          });
+        }, 3000);
       });
 
-      marker.addEventListener('markerLost', () => {
-        ui.style.display = 'none';
-      });
-
-      document.getElementById('reveal-btn').addEventListener('click', () => {
-        const panel = document.getElementById('info-panel');
-        panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
+      // Lógica de visibilidad
+      document.querySelector('a-marker').addEventListener('markerFound', () => {
+        document.getElementById('ui-container').style.display = 'block';
       });
     </script>
   </body>
