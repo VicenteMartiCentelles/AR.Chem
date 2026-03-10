@@ -32,6 +32,9 @@
       vr-mode-ui="enabled: false"
       arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
 
+      <a-entity light="type: ambient; intensity: 1.5;"></a-entity>
+      <a-entity light="type: directional; intensity: 0.8;" position="1 1 1"></a-entity>
+
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
         <a-entity id="model-h2o" rotation="-90 0 0"></a-entity>
       </a-marker>
@@ -74,7 +77,6 @@
         'xef4': { n: 'Tetrafluoruro de Xenón (XeF₄)', d: 'Geometría: <b>Cuadrada Plana</b><br>Ángulo: 90°<br>Hibridación: sp³d²' }
       };
 
-      // Función única de carga de modelos
       function initModels() {
         if (typeof THREE.VRMLLoader === 'undefined') {
           setTimeout(initModels, 500);
@@ -87,33 +89,35 @@
           loader.load(`${id}.wrl`, (vrml) => {
             const el = document.getElementById(`model-${id}`);
             if (el) {
-              // Ajustes de visibilidad para PyMOL
-              vrml.scale.set(8, 8, 8); // Escala considerable
+              // Ajuste de escala basado en tu archivo de agua (esferas de 0.4 unidades)
+              vrml.scale.set(10, 10, 10); 
               
-              // Centrar el objeto
+              // Centrado Radical: Compensa las coordenadas de traslación de PyMOL
               const box = new THREE.Box3().setFromObject(vrml);
               const center = box.getCenter(new THREE.Vector3());
-              vrml.position.x += (vrml.position.x - center.x);
-              vrml.position.y += (vrml.position.y - center.y);
-              vrml.position.z += (vrml.position.z - center.z);
+              vrml.position.x = -center.x;
+              vrml.position.y = -center.y;
+              vrml.position.z = -center.z;
 
               vrml.traverse(node => {
                 if (node.isMesh) {
                   node.material.side = THREE.DoubleSide;
+                  node.material.transparent = false;
+                  node.material.opacity = 1.0;
                 }
               });
 
               el.setObject3D('mesh', vrml);
-              console.log("Cargado con éxito: " + id);
+              console.log("Molecula cargada y centrada: " + id);
             }
-          }, undefined, (err) => console.error("Error cargando " + id, err));
+          }, undefined, (err) => console.error("Error en " + id, err));
         });
       }
 
-      // Iniciar carga después de que la escena esté lista
+      // Esperar a que la cámara inicie antes de cargar modelos
       window.addEventListener('load', () => setTimeout(initModels, 2000));
 
-      // Lógica de Marcadores y UI
+      // Lógica de UI
       const uiContainer = document.getElementById('ui-container');
       const infoPanel = document.getElementById('info-panel');
       const revealBtn = document.getElementById('reveal-btn');
@@ -131,7 +135,6 @@
             revealBtn.innerText = "🔍 VER GEOMETRÍA";
           }
         });
-
         marker.addEventListener('markerLost', () => {
           uiContainer.style.display = 'none';
         });
