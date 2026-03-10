@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Geometría Molecular</title>
+    <title>AR.Chem - Modelos Moleculares</title>
     <meta charset="utf-8">
-    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     
     <style>
-      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; max-width: 400px; z-index: 1000; display: none; text-align: center; }
-      #info-panel { background: rgba(255, 255, 255, 0.9); padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
+      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
+      #info-panel { background: rgba(255, 255, 255, 0.95); padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
       #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; }
     </style>
   </head>
@@ -25,16 +28,21 @@
     </div>
 
     <script>
-      AFRAME.registerComponent('vrml-model', {
+      // Componente optimizado para no interferir con la webcam
+      AFRAME.registerComponent('vrml-loader', {
         schema: { type: 'string' },
         init: function () {
           var el = this.el;
-          var loader = new THREE.VRMLLoader();
-          loader.load(this.data, function (vrml) {
-            // Escalado forzado para PyMOL
-            vrml.scale.set(3, 3, 3); 
-            el.setObject3D('mesh', vrml);
-            console.log("Cargado con éxito: " + el.id);
+          var url = this.data;
+          
+          // Solo intentamos cargar el modelo una vez que la escena esté lista
+          el.sceneEl.addEventListener('loaded', function() {
+            var loader = new THREE.VRMLLoader();
+            loader.load(url, function (vrml) {
+              vrml.scale.set(5, 5, 5); // Escala PyMOL aumentada
+              el.setObject3D('mesh', vrml);
+              console.log("Molecula cargada: " + url);
+            });
           });
         }
       });
@@ -43,68 +51,30 @@
     <a-scene 
       embedded 
       vr-mode-ui="enabled: false"
-      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+      arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;">
 
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-entity vrml-model="h2o.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+        <a-entity vrml-loader="h2o.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-entity vrml-model="ch4.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+        <a-entity vrml-loader="ch4.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
       </a-marker>
 
       <a-marker type="pattern" url="pattern-sf6.patt" id="sf6">
-        <a-entity vrml-model="sf6.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-nh3.patt" id="nh3">
-        <a-entity vrml-model="nh3.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-bf3.patt" id="bf3">
-        <a-entity vrml-model="bf3.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-pf5.patt" id="pf5">
-        <a-entity vrml-model="pf5.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-xef4.patt" id="xef4">
-        <a-entity vrml-model="xef4.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
+        <a-entity vrml-loader="sf6.wrl" rotation="-90 0 0" position="0 0.5 0"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
     </a-scene>
 
     <script>
+      // Lógica de UI simplificada
       const molData = {
         'h2o': { n: 'Agua (H₂O)', d: 'Geometría: <b>Angular</b>' },
         'ch4': { n: 'Metano (CH₄)', d: 'Geometría: <b>Tetraédrica</b>' },
-        'sf6': { n: 'Hexafluoruro (SF₆)', d: 'Geometría: <b>Octaédrica</b>' },
-        'nh3': { n: 'Amoníaco (NH₃)', d: 'Geometría: <b>Piramidal Trigonal</b>' },
-        'bf3': { n: 'Trifluoruro de Boro (BF₃)', d: 'Geometría: <b>Trigonal Plana</b>' },
-        'pf5': { n: 'Pentafluoruro (PF₅)', d: 'Geometría: <b>Bipirámide Trigonal</b>' },
-        'xef4': { n: 'Tetrafluoruro de Xenón (XeF₄)', d: 'Geometría: <b>Cuadrada Plana</b>' }
+        'sf6': { n: 'Hexafluoruro (SF₆)', d: 'Geometría: <b>Octaédrica</b>' }
       };
 
       document.querySelectorAll('a-marker').forEach(marker => {
         marker.addEventListener('markerFound', () => {
-          const data = molData[marker.id];
-          if (data) {
-            document.getElementById('mol-name').innerText = data.n;
-            document.getElementById('mol-details').innerHTML = data.d;
-            document.getElementById('ui-container').style.display = 'block';
-          }
-        });
-        marker.addEventListener('markerLost', () => {
-          document.getElementById('ui-container').style.display = 'none';
-        });
-      });
-
-      document.getElementById('reveal-btn').addEventListener('click', () => {
-        const panel = document.getElementById('info-panel');
-        panel.style.display = (panel.style.display === 'none' || panel.style.display === '') ? 'block' : 'none';
-      });
-    </script>
-  </body>
-</html>
