@@ -1,33 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Prueba OBJ Final</title>
+    <title>AR.Chem - Rescate Total</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
   </head>
 
   <body style="margin: 0px; overflow: hidden;">
-    <div id="ui" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 10; background: white; padding: 10px; border-radius: 5px; font-family: sans-serif; text-align: center;">
-        <b style="color: #2196F3">ESTADO: ESCANEANDO</b><br>
-        Si ves el cubo pero no el agua, aleja el móvil.
-    </div>
-
     <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
       
-      <a-entity light="type: ambient; intensity: 2;"></a-entity>
-
       <a-marker type="pattern" url="pattern-h2o.patt">
         
-        <a-box position="0 0 0" scale="0.05 0.05 0.05" material="color: blue; opacity: 0.5"></a-box>
+        <a-box position="0 0.5 0" scale="0.2 0.2 0.2" material="color: red;"></a-box>
 
         <a-entity 
-          id="molecule"
-          obj-model="obj: url(h2o.obj); mtl: url(h2o.mtl)" 
-          scale="5 5 5" 
-          rotation="-90 0 0"
-          position="0 0 0">
+          obj-model="obj: url(h2o.obj);" 
+          scale="0.1 0.1 0.1" 
+          position="0 0.5 0"
+          material="color: #4CC3D9; shader: flat;">
         </a-entity>
 
       </a-marker>
