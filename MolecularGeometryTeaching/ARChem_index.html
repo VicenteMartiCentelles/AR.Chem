@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>AR.Chem - Debug Final</title>
+    <title>AR.Chem - Prueba H2O.txt</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
@@ -9,7 +9,7 @@
     <script async src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r120/examples/js/loaders/VRMLLoader.js"></script>
     <style>
       #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%; z-index: 1000; display: none; text-align: center; }
-      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; }
+      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #2196F3; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
       #reveal-btn { background: #2196F3; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; }
     </style>
   </head>
@@ -28,13 +28,9 @@
       <a-entity light="type: directional; intensity: 1;" position="1 2 1"></a-entity>
 
       <a-marker type="pattern" url="pattern-h2o.patt" id="h2o">
-        <a-box size="0.1 0.1 0.1" material="color: red; opacity: 0.5"></a-box>
+        <a-box id="debug-cube" size="0.1 0.1 0.1" material="color: red; opacity: 0.6"></a-box>
+        
         <a-entity id="model-h2o" rotation="-90 0 0"></a-entity>
-      </a-marker>
-
-      <a-marker type="pattern" url="pattern-ch4.patt" id="ch4">
-        <a-box size="0.1 0.1 0.1" material="color: blue; opacity: 0.5"></a-box>
-        <a-entity id="model-ch4" rotation="-90 0 0"></a-entity>
       </a-marker>
 
       <a-entity camera></a-entity>
@@ -42,59 +38,67 @@
 
     <script>
       const molData = {
-        'h2o': { n: 'Agua (H₂O)', d: 'Geometría: <b>Angular</b>' },
-        'ch4': { n: 'Metano (CH₄)', d: 'Geometría: <b>Tetraédrica</b>' }
+        'h2o': { n: 'Agua (H₂O)', d: 'Geometría: <b>Angular</b><br>Archivo: h2o.txt' }
       };
 
       function initModels() {
+        // Verificar si la librería VRML ya cargó
         if (typeof THREE.VRMLLoader === 'undefined') {
+          console.log("Esperando a VRMLLoader...");
           setTimeout(initModels, 500);
           return;
         }
 
         const loader = new THREE.VRMLLoader();
-        Object.keys(molData).forEach(id => {
-          loader.load(`${id}.wrl`, (vrml) => {
-            const el = document.getElementById(`model-${id}`);
-            if (el) {
-              // ESCALA MUY GRANDE PARA EL ARCHIVO DE PYMOL
-              vrml.scale.set(15, 15, 15); 
-              
-              // CENTRADO MANUAL BASADO EN TU ARCHIVO
-              const box = new THREE.Box3().setFromObject(vrml);
-              const center = box.getCenter(new THREE.Vector3());
-              vrml.position.set(-center.x, -center.y, -center.z);
+        
+        // Intentar cargar h2o.txt
+        loader.load('h2o.txt', (vrml) => {
+          const el = document.getElementById('model-h2o');
+          const cube = document.getElementById('debug-cube');
+          
+          if (el) {
+            // Ajustes de visibilidad
+            vrml.scale.set(15, 15, 15); 
+            
+            // Centrar automáticamente
+            const box = new THREE.Box3().setFromObject(vrml);
+            const center = box.getCenter(new THREE.Vector3());
+            vrml.position.set(-center.x, -center.y, -center.z);
 
-              // FORZAR MATERIALES VISIBLES
-              vrml.traverse(node => {
-                if (node.isMesh) {
-                  node.material.side = THREE.DoubleSide;
-                  // Si el color es muy oscuro, le damos un empujón
-                  node.material.color.convertSRGBToLinear(); 
-                }
-              });
+            vrml.traverse(node => {
+              if (node.isMesh) {
+                node.material.side = THREE.DoubleSide;
+                if(node.material.color) node.material.color.multiplyScalar(1.2);
+              }
+            });
 
-              el.setObject3D('mesh', vrml);
-              console.log("Molecula inyectada: " + id);
-            }
-          });
+            el.setObject3D('mesh', vrml);
+            
+            // ÉXITO: Quitamos el cubo rojo para confirmar que el modelo está ahí
+            if (cube) cube.setAttribute('visible', 'false');
+            console.log("✅ H2O.txt cargado y cubo ocultado");
+          }
+        }, 
+        (xhr) => { 
+          if (xhr.lengthComputable) console.log("Cargando: " + Math.round(xhr.loaded / xhr.total * 100) + "%");
+        }, 
+        (err) => { 
+          console.error("❌ Error al cargar h2o.txt. Revisa que el archivo esté en la raíz de tu GitHub.", err);
         });
       }
 
+      // Iniciar carga después de 2 segundos
       window.addEventListener('load', () => setTimeout(initModels, 2000));
 
-      document.querySelectorAll('a-marker').forEach(marker => {
-        marker.addEventListener('markerFound', () => {
-          const data = molData[marker.id];
-          if (data) {
-            document.getElementById('mol-name').innerText = data.n;
-            document.getElementById('mol-details').innerHTML = data.d;
-            document.getElementById('ui-container').style.display = 'block';
-          }
-        });
-        marker.addEventListener('markerLost', () => {
-          document.getElementById('ui-container').style.display = 'none';
-        });
+      // Lógica de UI
+      document.querySelector('a-marker').addEventListener('markerFound', () => {
+        document.getElementById('mol-name').innerText = molData['h2o'].n;
+        document.getElementById('mol-details').innerHTML = molData['h2o'].d;
+        document.getElementById('ui-container').style.display = 'block';
+      });
+
+      document.querySelector('a-marker').addEventListener('markerLost', () => {
+        document.getElementById('ui-container').style.display = 'none';
       });
     </script>
   </body>
