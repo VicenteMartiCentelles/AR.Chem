@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AR.Chem - Catenane Viewer</title>
+    <meta charset="utf-8">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <style>
+      #ui-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1000; display: none; text-align: center; width: 300px; }
+      #info-panel { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; font-family: sans-serif; border: 2px solid #9C27B0; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+      #reveal-btn { background: #9C27B0; color: white; border: none; padding: 12px 25px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+      #reveal-btn:active { transform: scale(0.95); }
+      .mol-title { color: #7B1FA2; font-weight: bold; font-size: 1.2em; margin-bottom: 5px; }
+    </style>
+  </head>
+
+  <body style="margin: 0px; overflow: hidden;">
+    <div id="ui-container">
+      <div id="info-panel" style="display: none;">
+        <div class="mol-title">Catenano de caja molecular</div>
+        <div id="mol-details">
+          <b>Arquitectura Molecular:</b> Cajas moleculares entrelazadas mecánicamente.<br>
+        </div>
+      </div>
+      <button id="reveal-btn">🔍 ANALIZAR ESTRUCTURA</button>
+    </div>
+
+    <a-scene embedded vr-mode-ui="enabled: false" arjs="sourceType: webcam; debugUIEnabled: false;">
+      <a-entity light="type: ambient; intensity: 1.0;"></a-entity>
+      <a-entity light="type: directional; intensity: 0.8;" position="1 2 1"></a-entity>
+
+      <a-marker type="pattern" url="pattern-catenane.patt" id="marker-catenane">
+        
+<a-entity position="0 3 1" scale="0.0378 0.0378 0.0378" rotation="45 0 85"
+           animation="property: rotation; to: 0 360 0; dir: alternate; loop: true; dur: 12000; easing: linear" >
+		  
+  <a-sphere position="-9.368 -5.728 6.881" radius="0.3" color="#006994"></a-sphere>
+  <a-sphere position="2.647 0.072 11.656" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-10.304 -3.553 7.225" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-3.021 -2.422 12.921" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-10.613 -6.088 4.855" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-2.927 -3.065 10.706" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-2.409 -3.090 9.844" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.994 3.602 7.081" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-9.221 2.274 6.417" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-8.320 2.228 5.974" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-8.138 -5.373 8.882" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-12.149 -5.733 -2.271" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-4.189 -3.565 10.782" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-9.922 1.150 6.720" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-9.670 -2.482 6.733" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-8.704 -2.653 6.281" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-9.868 3.495 6.610" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-2.393 -2.512 11.871" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-8.474 -7.807 6.551" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-10.800 -5.885 2.501" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-10.038 -5.859 3.662" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-8.975 -5.747 3.636" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="1.433 -0.577 11.645" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.066 -2.314 10.855" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.221 -3.189 10.234" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="1.313 -11.706 -0.034" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="0.485 -0.175 12.581" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.709 0.629 13.280" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-7.346 8.214 4.773" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-8.365 -3.972 -7.038" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-7.317 -7.790 5.841" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.877 -6.827 5.623" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-9.143 4.711 6.152" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-11.931 -6.346 4.987" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-12.338 -6.521 5.966" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-12.733 -6.387 3.849" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-13.798 -6.609 3.932" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-7.750 4.843 6.248" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.150 4.090 6.746" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-12.165 -6.147 2.598" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-12.794 -6.191 1.704" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.750 -0.824 12.638" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.479 -0.507 13.385" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.829 -5.063 8.750" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.411 -5.108 7.759" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-9.399 -0.012 6.554" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-8.375 -0.152 6.169" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.826 -5.702 0.113" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-1.042 -1.886 11.766" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-10.133 -5.686 1.196" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-9.042 -5.523 1.189" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-11.541 -3.471 7.764" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-12.063 -4.368 8.049" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.199 -1.209 6.905" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.775 -10.106 3.609" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-3.289 -9.262 3.352" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.182 -5.518 -1.074" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-9.200 -5.295 -1.102" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="0.143 -10.598 1.790" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.011 -9.979 2.001" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-8.556 -10.164 6.482" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-9.052 -11.104 6.728" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-8.934 -4.350 -5.846" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.942 -10.079 4.308" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-12.137 -2.221 7.914" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-13.127 -2.129 8.367" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="1.173 -1.660 10.799" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.953 -2.023 10.134" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-8.868 -5.490 -3.710" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-8.323 -6.113 -3.009" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.943 -5.522 -2.242" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.998 -10.517 2.602" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.996 -9.835 3.445" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.729 -8.979 5.434" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.198 -11.533 0.750" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-11.454 -1.081 7.498" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-11.907 -0.097 7.656" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-8.761 -5.432 10.074" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-9.778 -5.773 10.132" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.143 -4.565 9.856" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-9.906 5.768 5.634" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-10.994 5.702 5.609" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.289 -4.079 -5.666" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-10.855 -3.570 -6.444" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.765 -4.035 9.732" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.264 -4.065 8.754" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-7.128 6.008 5.783" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.057 6.144 5.909" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-8.228 -5.083 -4.888" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.202 -5.379 -5.087" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-5.455 -8.961 4.676" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.985 -7.989 4.449" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.217 -5.166 -3.496" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-9.284 6.927 5.171" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-9.884 7.753 4.793" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-7.896 7.034 5.218" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-2.078 -11.381 2.374" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.356 -10.179 5.768" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.920 -11.140 5.475" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-9.119 -8.947 6.866" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-10.071 -8.907 7.377" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-8.075 -5.052 11.220" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-8.559 -5.100 12.197" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-10.928 -4.482 -4.491" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-11.991 -4.275 -4.366" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.993 -12.342 1.356" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-2.802 -13.056 1.202" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-3.319 -11.359 3.195" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.772 -4.583 11.104" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.248 -4.245 12.005" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.857 -12.419 0.548" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.789 -13.186 -0.221" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-3.935 -12.400 3.392" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="3.188 1.886 -2.264" radius="0.3" color="#006994"></a-sphere>
+  <a-sphere position="2.117 4.035 -1.763" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-3.290 -0.397 -8.343" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="4.228 2.044 -0.273" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-3.048 -0.535 -6.054" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-3.355 -1.014 -5.220" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-2.050 8.755 1.317" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-2.561 6.533 0.963" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-3.198 5.772 1.144" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.175 1.733 -4.206" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="5.762 2.658 6.715" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-1.853 0.110 -6.136" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-1.375 6.374 0.345" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="0.902 4.028 -1.185" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.352 3.112 -1.187" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-2.839 7.822 1.421" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.733 -0.739 -7.253" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="4.229 -0.203 -2.752" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="4.349 1.963 2.084" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.689 1.649 0.898" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.742 1.139 0.873" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-7.252 -3.163 -7.001" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-5.924 -1.322 -6.144" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-5.832 -0.489 -5.454" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.321 -3.357 -8.023" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.495 -4.123 -8.777" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.541 -1.318 -2.463" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.530 -1.174 -2.157" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.079 7.959 2.218" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.434 2.660 -0.357" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.819 2.927 -1.337" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="6.144 2.947 0.797" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.114 3.444 0.760" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-5.266 7.304 1.864" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-5.361 6.777 0.920" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="5.589 2.610 2.025" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.139 2.853 2.941" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-5.185 -2.549 -8.101" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.479 -2.700 -8.917" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="0.936 1.187 -4.095" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.598 0.898 -3.105" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.970 5.234 -0.067" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.551 4.303 0.037" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.432 1.955 4.448" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-4.974 -1.546 -7.150" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.767 1.621 3.401" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.799 1.096 3.447" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.744 5.179 -2.077" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.734 5.136 -2.462" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="0.353 5.213 -0.722" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.129 -6.047 -2.296" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="2.334 -6.014 -1.672" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.942 1.666 5.678" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="3.183 1.013 5.810" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="1.045 -9.661 -1.339" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.033 -9.793 -1.396" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="6.027 -1.462 -3.619" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.028 -1.516 -4.048" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.098 0.596 10.466" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.828 -4.927 -2.623" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="2.214 6.399 -1.685" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.733 7.335 -1.891" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-7.069 -2.127 -6.079" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.841 -1.905 -5.346" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.788 1.759 8.369" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.139 2.309 7.696" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.707 2.042 6.785" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.649 -8.578 -1.985" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.022 -7.881 -2.531" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.080 -2.566 -2.722" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.833 -10.603 -0.670" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.024 6.411 -0.974" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.609 7.372 -0.648" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.715 2.038 -5.396" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.731 2.401 -5.425" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="0.155 0.981 -5.219" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.020 8.738 3.380" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.115 9.287 3.636" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.470 0.507 10.218" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.126 0.048 10.957" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.145 0.286 -5.084" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.461 -0.067 -4.087" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.374 7.385 2.711" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.316 6.920 2.430" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.264 1.262 9.563" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.217 1.424 9.806" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.313 -3.779 -2.375" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.314 -3.668 -1.921" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.153 1.600 8.088" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-5.127 8.815 4.222" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-5.088 9.426 5.123" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.285 8.108 3.905" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.045 -8.452 -1.973" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.348 -2.637 -3.299" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.814 -3.606 -3.508" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="5.425 -0.236 -3.354" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.922 0.697 -3.499" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="1.957 1.871 -6.553" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.366 2.133 -7.530" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="5.003 1.012 9.029" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.074 0.941 8.847" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.833 -9.432 -1.359" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="4.920 -9.368 -1.385" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.732 -7.276 -2.565" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.669 1.344 -6.463" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.085 1.189 -7.377" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.224 -10.506 -0.708" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.837 -11.275 -0.241" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.814 -7.391 -3.128" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-3.118 -1.630 2.483" radius="0.3" color="#006994"></a-sphere>
+  <a-sphere position="10.700 -2.423 4.607" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-3.186 0.252 3.978" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="4.888 -4.027 6.599" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-4.659 -0.652 1.099" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="4.355 -2.988 4.604" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="4.700 -2.482 3.800" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.945 6.295 7.104" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-0.059 5.125 5.317" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="0.599 5.153 4.551" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.555 -2.623 3.887" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-7.502 2.345 -4.798" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="3.035 -3.161 4.845" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-1.072 4.229 5.367" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-2.288 1.229 3.758" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.558 1.056 3.001" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.093 6.175 6.233" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.242 -3.491 5.556" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.053 -3.451 1.038" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-5.196 0.495 -0.900" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.256 0.067 0.031" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.200 0.198 -0.128" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="9.362 -2.691 4.781" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.209 -3.466 3.992" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.609 -3.903 3.201" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.337 -6.536 -9.582" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="8.842 -2.528 6.065" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.488 -2.196 6.877" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.492 10.315 4.927" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-4.563 6.092 -9.050" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="-2.157 -3.464 0.031" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.503 -2.617 -0.053" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="0.916 7.232 5.990" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-5.958 -0.901 1.365" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.204 -1.422 2.279" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.935 -0.440 0.492" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.993 -0.615 0.688" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.245 6.918 5.672" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.615 5.899 5.737" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.549 0.249 -0.656" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.318 0.594 -1.356" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="7.497 -2.808 6.313" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.101 -2.690 7.320" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.262 -2.398 3.568" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.061 -1.730 2.748" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.092 3.255 4.536" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.311 3.101 3.772" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-5.661 1.562 -2.970" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="6.676 -3.251 5.271" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.763 1.191 -2.133" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.687 1.368 -2.299" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.169 0.376 4.891" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.991 -0.317 4.888" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-2.215 2.303 4.629" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.484 -5.588 -3.929" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="0.190 -4.870 -4.155" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-5.298 2.205 -4.110" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-4.368 2.573 -4.253" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.274 -6.310 -7.152" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.347 -6.139 -7.104" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.087 -5.430 0.265" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.849 -6.204 0.359" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.955 5.191 -8.087" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.321 -5.501 -2.864" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-4.183 1.475 5.742" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.965 1.595 6.492" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="8.558 -3.192 3.752" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="8.996 -3.408 2.780" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.756 3.104 -6.878" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.261 2.146 -6.756" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.318 2.599 -4.979" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.524 -6.353 -5.972" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.035 -6.212 -5.026" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-2.186 -4.494 -0.902" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.656 -6.547 -8.385" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.180 2.429 5.629" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.155 3.271 6.330" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.922 -3.420 4.907" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-2.958 -3.683 5.029" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="0.741 -2.909 4.376" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.492 8.563 6.025" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.525 8.814 6.323" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.104 5.507 -7.359" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-6.647 6.427 -7.573" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.162 -2.674 4.045" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.422 -2.107 3.134" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.128 7.941 5.320" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="4.171 7.714 5.116" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.306 3.971 -7.877" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.478 3.675 -8.517" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.232 -4.526 -2.035" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.480 -3.727 -2.133" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-5.872 3.453 -6.106" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.376 9.580 5.667" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.050 10.619 5.695" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.677 9.264 5.276" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.156 -6.652 -6.029" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.160 -5.490 -0.772" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.213 -6.318 -1.488" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-4.019 -4.378 1.167" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-4.689 -4.289 2.002" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.950 -3.968 5.734" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.220 -4.623 6.563" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-6.568 4.637 -6.369" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-7.469 4.890 -5.812" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.444 -6.952 -7.258" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.494 -7.237 -7.310" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-0.698 -6.649 -4.813" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.388 -3.699 5.473" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.158 -4.138 6.118" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="0.307 -6.898 -8.434" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.156 -7.144 -9.389" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.611 -7.455 -4.683" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="9.374 5.462 -7.090" radius="0.3" color="#006994"></a-sphere>
+  <a-sphere position="9.358 7.275 -5.640" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="1.193 7.803 -10.977" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="10.945 4.434 -5.657" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="1.857 6.707 -9.051" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="1.584 6.166 -8.246" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="7.870 10.609 0.411" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="6.562 9.017 -0.628" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="5.716 8.473 -0.630" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="7.822 6.478 -8.506" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="13.627 0.639 -0.087" radius="0.3" color="#FF0000"></a-sphere>
+  <a-sphere position="3.164 6.951 -9.337" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="7.459 8.963 -1.644" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="8.364 7.255 -4.721" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.654 6.447 -4.777" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="6.850 9.928 0.393" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="0.909 7.206 -9.945" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.390 3.560 -8.610" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="11.442 3.100 -3.761" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="10.518 3.714 -4.599" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.468 3.718 -4.379" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-3.215 6.327 -9.199" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-1.036 6.971 -8.347" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.424 7.318 -7.521" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-2.704 6.287 -10.494" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-3.358 6.060 -11.335" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="8.398 2.657 -8.426" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.642 2.875 -7.696" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="5.910 9.985 1.545" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="12.251 4.590 -5.955" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="12.532 5.214 -6.788" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="13.207 3.963 -5.162" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="14.270 4.070 -5.386" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.527 9.802 1.413" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="4.068 9.671 0.440" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="12.800 3.213 -4.060" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="13.556 2.743 -3.424" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-1.355 6.571 -10.717" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-0.971 6.562 -11.738" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="6.534 6.244 -8.164" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.362 5.578 -7.336" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="7.352 8.123 -2.608" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.525 7.399 -2.689" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="11.856 1.838 -1.776" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="-0.513 6.896 -9.645" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="10.985 2.397 -2.538" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.905 2.374 -2.316" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="10.223 8.302 -5.750" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="10.947 8.328 -6.549" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="8.390 8.159 -3.668" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.170 -1.390 -9.686" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="5.484 -1.312 -8.953" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="11.448 1.196 -0.648" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="10.471 1.038 -0.458" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="2.866 -4.176 -9.752" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="1.822 -3.914 -9.598" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="10.241 2.341 -10.443" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="10.981 2.220 -11.237" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="11.055 -1.667 3.513" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.181 -0.488 -9.816" radius="0.3" color="#2196F3"></a-sphere>
+  <a-sphere position="10.239 9.273 -4.753" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="10.960 10.092 -4.786" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="-2.392 6.694 -8.127" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="-2.821 6.817 -7.137" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="10.883 0.308 2.121" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="10.457 1.290 1.949" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="12.425 0.590 0.143" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.818 -3.177 -9.991" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.498 -2.141 -10.034" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="8.326 1.524 -9.230" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.245 -5.522 -9.778" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.344 9.179 -3.689" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.378 9.936 -2.899" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="8.168 7.282 -9.527" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.202 7.526 -9.697" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="5.503 6.760 -8.937" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.453 10.284 2.805" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.520 10.478 2.916" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="12.122 -2.125 2.742" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="12.632 -3.050 3.008" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.092 6.470 -8.590" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="3.879 5.851 -7.702" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="3.703 9.892 2.543" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="2.622 9.817 2.442" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="10.452 -0.438 3.224" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.690 -0.040 3.889" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="7.216 0.554 -9.064" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.448 0.756 -8.296" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="11.926 -0.174 1.317" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.630 10.376 3.927" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.054 10.643 4.894" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.262 10.158 3.798" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.146 -3.533 -10.266" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.272 1.361 -10.240" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="9.250 0.485 -10.897" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="10.271 3.466 -9.622" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="11.055 4.192 -9.729" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="7.163 7.854 -10.305" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="7.418 8.523 -11.129" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="12.559 -1.380 1.644" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="13.410 -1.733 1.062" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="5.503 -4.885 -10.347" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="6.519 -5.173 -10.619" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="6.198 -2.511 -10.517" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.827 7.580 -10.018" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="5.044 8.027 -10.639" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="4.552 -5.879 -10.104" radius="0.3" color="#333333"></a-sphere>
+  <a-sphere position="4.828 -6.929 -10.189" radius="0.18" color="#FFFFFF"></a-sphere>
+  <a-sphere position="7.043 -2.706 -11.381" radius="0.3" color="#FF0000"></a-sphere>
+  <a-cylinder position="-9.836 -4.640 7.053" 
+              rotation="24.631 -69.821 0" radius="0.07" height="2.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.991 -5.908 5.868" 
+              rotation="98.609 -148.429 0" radius="0.07" height="2.405" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.753 -5.550 7.882" 
+              rotation="81.405 31.579 0" radius="0.07" height="2.375" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.921 -6.767 6.716" 
+              rotation="155.374 110.260 0" radius="0.07" height="2.287" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.040 -0.252 11.651" 
+              rotation="118.128 -90.519 0" radius="0.07" height="1.377" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.872 0.334 11.061" 
+              rotation="67.620 159.244 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.987 -3.017 6.979" 
+              rotation="36.845 127.812 0" radius="0.07" height="1.338" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.923 -3.512 7.495" 
+              rotation="86.522 -66.456 0" radius="0.07" height="1.352" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.707 -2.467 12.396" 
+              rotation="94.207 149.117 0" radius="0.07" height="1.227" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.326 -5.973 4.259" 
+              rotation="80.190 154.267 0" radius="0.07" height="1.344" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.272 -6.217 4.921" 
+              rotation="101.022 -84.281 0" radius="0.07" height="1.349" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.668 -3.077 10.275" 
+              rotation="91.424 148.997 0" radius="0.07" height="1.006" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.558 -3.315 10.744" 
+              rotation="111.578 -86.554 0" radius="0.07" height="1.360" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.660 -2.788 11.289" 
+              rotation="66.659 24.625 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.431 3.549 6.846" 
+              rotation="95.010 112.699 0" radius="0.07" height="1.225" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.771 2.251 6.196" 
+              rotation="92.623 116.182 0" radius="0.07" height="1.005" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.572 1.712 6.569" 
+              rotation="145.807 -66.624 0" radius="0.07" height="1.359" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.545 2.885 6.514" 
+              rotation="28.941 -73.390 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.484 -5.218 8.816" 
+              rotation="76.741 95.758 0" radius="0.07" height="1.352" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.450 -5.402 9.478" 
+              rotation="92.512 -27.594 0" radius="0.07" height="1.346" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.546 -5.627 -2.256" 
+              rotation="80.079 88.623 0" radius="0.07" height="1.225" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.477 -3.800 10.257" 
+              rotation="111.427 -151.252 0" radius="0.07" height="1.287" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.661 0.569 6.637" 
+              rotation="154.723 107.609 0" radius="0.07" height="1.285" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.187 -2.567 6.507" 
+              rotation="99.109 115.075 0" radius="0.07" height="1.080" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.935 -1.845 6.819" 
+              rotation="23.604 -71.988 0" radius="0.07" height="1.389" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.506 4.103 6.381" 
+              rotation="35.192 122.282 0" radius="0.07" height="1.488" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.718 -2.199 11.819" 
+              rotation="65.205 94.444 0" radius="0.07" height="1.493" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.896 -7.798 6.196" 
+              rotation="89.283 121.536 0" radius="0.07" height="1.358" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.797 -8.377 6.709" 
+              rotation="147.803 -63.970 0" radius="0.07" height="1.347" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.419 -5.872 3.082" 
+              rotation="88.927 33.278 0" radius="0.07" height="1.389" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.483 -6.016 2.550" 
+              rotation="100.839 -85.935 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.467 -5.785 1.849" 
+              rotation="82.268 152.928 0" radius="0.07" height="1.479" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.507 -5.803 3.649" 
+              rotation="83.987 91.401 0" radius="0.07" height="1.069" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.959 -0.376 12.113" 
+              rotation="73.209 -45.365 0" radius="0.07" height="1.392" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.303 -1.118 11.222" 
+              rotation="140.744 -162.916 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.144 -2.751 10.545" 
+              rotation="143.815 -165.985 0" radius="0.07" height="1.084" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.554 -2.100 11.311" 
+              rotation="72.225 -46.973 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.553 -1.987 10.827" 
+              rotation="62.197 92.588 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.755 -11.619 0.358" 
+              rotation="82.767 -54.887 0" radius="0.07" height="1.374" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.573 -11.154 -0.352" 
+              rotation="36.679 140.730 0" radius="0.07" height="1.375" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.597 0.227 12.931" 
+              rotation="42.395 17.768 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.133 -0.499 12.610" 
+              rotation="117.697 -87.357 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.621 7.624 4.996" 
+              rotation="149.055 -51.024 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.816 8.161 4.339" 
+              rotation="94.422 129.286 0" radius="0.07" height="1.375" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.650 -4.161 -6.442" 
+              rotation="105.970 -25.517 0" radius="0.07" height="1.374" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.809 -3.567 -7.019" 
+              rotation="54.003 88.096 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.097 -7.308 5.732" 
+              rotation="27.018 116.356 0" radius="0.07" height="1.081" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.023 -8.384 5.638" 
+              rotation="148.975 124.690 0" radius="0.07" height="1.387" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.447 4.777 6.200" 
+              rotation="84.600 86.058 0" radius="0.07" height="1.403" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.525 5.240 5.893" 
+              rotation="41.104 -124.173 0" radius="0.07" height="1.403" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-12.135 -6.433 5.477" 
+              rotation="99.373 -22.574 0" radius="0.07" height="1.075" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-12.332 -6.366 4.418" 
+              rotation="91.687 -144.826 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-13.266 -6.498 3.891" 
+              rotation="101.740 -85.544 0" radius="0.07" height="1.091" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-12.449 -6.267 3.224" 
+              rotation="80.091 155.580 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.450 4.467 6.497" 
+              rotation="134.000 50.307 0" radius="0.07" height="1.084" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.439 5.426 6.016" 
+              rotation="33.688 126.781 0" radius="0.07" height="1.400" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-12.480 -6.169 2.151" 
+              rotation="92.305 -144.871 0" radius="0.07" height="1.094" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.115 -0.665 13.012" 
+              rotation="73.106 -44.301 0" radius="0.07" height="1.091" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.896 -1.355 12.202" 
+              rotation="139.111 -161.486 0" radius="0.07" height="1.405" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.620 -5.085 8.255" 
+              rotation="92.396 157.130 0" radius="0.07" height="1.076" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.486 -4.814 9.303" 
+              rotation="69.061 31.809 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.887 -0.082 6.362" 
+              rotation="97.293 110.605 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.799 -0.610 6.730" 
+              rotation="143.877 -66.311 0" radius="0.07" height="1.482" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.480 -5.694 0.655" 
+              rotation="89.287 32.615 0" radius="0.07" height="1.286" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.504 -5.610 -0.480" 
+              rotation="82.241 151.518 0" radius="0.07" height="1.363" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.588 -5.604 1.193" 
+              rotation="81.503 90.368 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.802 -3.919 7.907" 
+              rotation="146.455 -61.366 0" radius="0.07" height="1.076" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.839 -2.846 7.839" 
+              rotation="26.182 -75.873 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.827 -1.145 7.202" 
+              rotation="84.731 -64.709 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.532 -9.684 3.481" 
+              rotation="33.080 117.870 0" radius="0.07" height="1.007" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.359 -10.092 3.959" 
+              rotation="88.863 -59.080 0" radius="0.07" height="1.361" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.547 -10.732 3.402" 
+              rotation="153.824 132.236 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.691 -5.406 -1.088" 
+              rotation="77.211 91.633 0" radius="0.07" height="1.007" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.563 -5.520 -1.658" 
+              rotation="90.164 -146.914 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.577 -10.288 1.896" 
+              rotation="55.280 76.337 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.428 -10.557 2.196" 
+              rotation="86.690 -54.562 0" radius="0.07" height="1.403" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.170 -11.065 1.270" 
+              rotation="131.917 176.973 0" radius="0.07" height="1.400" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.804 -10.634 6.605" 
+              rotation="149.502 -63.620 0" radius="0.07" height="1.091" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.956 -10.171 6.125" 
+              rotation="90.615 120.753 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.838 -9.555 6.674" 
+              rotation="29.248 -55.704 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.612 -4.214 -5.756" 
+              rotation="78.786 -82.433 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.581 -4.716 -5.367" 
+              rotation="121.631 36.388 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.199 -9.520 4.492" 
+              rotation="29.454 -54.346 0" radius="0.07" height="1.284" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-12.632 -2.175 8.141" 
+              rotation="85.170 -65.412 0" radius="0.07" height="1.093" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.796 -1.651 7.706" 
+              rotation="35.050 121.345 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.563 -1.841 10.467" 
+              rotation="109.501 130.450 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.596 -5.801 -3.359" 
+              rotation="125.055 37.864 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.548 -5.286 -4.299" 
+              rotation="73.112 151.485 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.543 -5.328 -3.603" 
+              rotation="76.655 -80.986 0" radius="0.07" height="1.404" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.580 -5.344 -2.869" 
+              rotation="76.197 149.931 0" radius="0.07" height="1.492" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.997 -10.176 3.024" 
+              rotation="51.027 0.136 0" radius="0.07" height="1.084" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.538 -10.949 2.488" 
+              rotation="128.052 -101.921 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.092 -8.970 5.055" 
+              rotation="89.304 120.752 0" radius="0.07" height="1.483" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.043 -9.579 5.601" 
+              rotation="149.374 -61.956 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.330 -11.976 0.649" 
+              rotation="129.517 -100.839 0" radius="0.07" height="1.392" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.681 -0.589 7.577" 
+              rotation="25.992 -70.772 0" radius="0.07" height="1.095" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.270 -5.602 10.103" 
+              rotation="108.508 -86.736 0" radius="0.07" height="1.074" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.418 -5.242 10.647" 
+              rotation="74.118 30.905 0" radius="0.07" height="1.389" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.454 -4.300 9.794" 
+              rotation="69.040 95.142 0" radius="0.07" height="1.482" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.458 -4.574 10.480" 
+              rotation="90.738 -26.748 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.450 5.735 5.622" 
+              rotation="93.470 -91.316 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.595 6.348 5.403" 
+              rotation="33.784 126.663 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.572 -3.824 -6.055" 
+              rotation="62.119 -143.964 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.609 -4.280 -5.078" 
+              rotation="106.768 -28.539 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.515 -4.050 9.243" 
+              rotation="91.564 152.875 0" radius="0.07" height="1.099" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.593 6.076 5.846" 
+              rotation="82.812 83.290 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.512 6.521 5.501" 
+              rotation="42.901 -126.341 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.715 -5.231 -4.987" 
+              rotation="105.813 100.977 0" radius="0.07" height="1.086" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.220 -8.475 4.563" 
+              rotation="28.235 115.780 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-10.573 -4.824 -3.993" 
+              rotation="60.781 -144.451 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.584 7.340 4.982" 
+              rotation="40.647 -122.211 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.590 6.981 5.195" 
+              rotation="85.594 88.061 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.036 -11.861 1.865" 
+              rotation="133.251 175.227 0" radius="0.07" height="1.403" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.699 -11.370 2.785" 
+              rotation="89.153 -56.513 0" radius="0.07" height="1.488" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.138 -10.659 5.622" 
+              rotation="151.338 123.902 0" radius="0.07" height="1.095" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-9.595 -8.927 7.122" 
+              rotation="87.880 -61.775 0" radius="0.07" height="1.081" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-8.317 -5.076 11.709" 
+              rotation="92.521 -26.354 0" radius="0.07" height="1.091" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.424 -4.817 11.162" 
+              rotation="70.276 95.087 0" radius="0.07" height="1.390" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-11.460 -4.378 -4.428" 
+              rotation="79.054 -83.293 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.398 -12.699 1.279" 
+              rotation="130.925 -100.778 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.425 -12.380 0.952" 
+              rotation="93.162 125.423 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.627 -11.879 3.294" 
+              rotation="148.149 -72.265 0" radius="0.07" height="1.226" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.510 -4.414 11.555" 
+              rotation="72.033 30.181 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.823 -12.802 0.164" 
+              rotation="134.814 174.947 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.652 2.961 -2.013" 
+              rotation="28.820 -64.930 0" radius="0.07" height="2.453" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.708 1.965 -1.268" 
+              rotation="85.976 27.580 0" radius="0.07" height="2.252" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.681 1.810 -3.235" 
+              rotation="93.996 -152.452 0" radius="0.07" height="2.196" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.708 0.842 -2.508" 
+              rotation="151.173 115.116 0" radius="0.07" height="2.384" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.509 4.032 -1.474" 
+              rotation="90.298 -64.559 0" radius="0.07" height="1.345" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.430 4.607 -1.920" 
+              rotation="31.507 116.602 0" radius="0.07" height="1.342" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.512 -0.568 -7.798" 
+              rotation="106.208 -22.118 0" radius="0.07" height="1.225" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.958 1.847 0.313" 
+              rotation="107.036 -24.716 0" radius="0.07" height="1.348" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.831 2.352 -0.315" 
+              rotation="62.999 93.984 0" radius="0.07" height="1.357" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.202 -0.774 -5.637" 
+              rotation="118.324 -20.209 0" radius="0.07" height="1.010" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.451 -0.212 -6.095" 
+              rotation="61.698 93.925 0" radius="0.07" height="1.360" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.391 -0.637 -6.653" 
+              rotation="98.404 -150.260 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.445 8.289 1.369" 
+              rotation="139.537 -82.491 0" radius="0.07" height="1.226" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.880 6.153 1.054" 
+              rotation="138.970 -74.138 0" radius="0.07" height="1.009" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.968 6.454 0.654" 
+              rotation="96.780 117.523 0" radius="0.07" height="1.347" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.700 7.178 1.192" 
+              rotation="22.570 -31.257 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.555 1.460 -4.150" 
+              rotation="113.698 -84.881 0" radius="0.07" height="1.359" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.445 1.886 -4.801" 
+              rotation="76.863 155.592 0" radius="0.07" height="1.342" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.234 2.350 6.750" 
+              rotation="120.225 -86.204 0" radius="0.07" height="1.224" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.499 0.198 -5.610" 
+              rotation="82.098 33.941 0" radius="0.07" height="1.280" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.173 5.804 0.139" 
+              rotation="153.125 135.491 0" radius="0.07" height="1.278" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.627 3.570 -1.186" 
+              rotation="149.018 -90.208 0" radius="0.07" height="1.068" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.627 4.621 -0.953" 
+              rotation="31.218 -49.857 0" radius="0.07" height="1.386" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.459 7.891 1.820" 
+              rotation="84.690 -57.269 0" radius="0.07" height="1.480" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.354 -1.142 -7.201" 
+              rotation="122.945 -85.255 0" radius="0.07" height="1.484" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.885 -0.760 -2.607" 
+              rotation="146.207 -67.215 0" radius="0.07" height="1.342" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.827 -0.219 -3.053" 
+              rotation="91.412 116.718 0" radius="0.07" height="1.339" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.019 1.806 1.491" 
+              rotation="103.026 -150.904 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.969 2.287 2.055" 
+              rotation="62.472 92.724 0" radius="0.07" height="1.400" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.058 1.792 2.743" 
+              rotation="103.361 -23.841 0" radius="0.07" height="1.480" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.215 1.394 0.886" 
+              rotation="118.296 -91.512 0" radius="0.07" height="1.076" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.787 -3.260 -7.512" 
+              rotation="97.988 137.668 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.161 -2.645 -6.540" 
+              rotation="42.218 11.226 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.878 -0.905 -5.799" 
+              rotation="39.884 7.595 0" radius="0.07" height="1.086" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.449 -1.434 -6.647" 
+              rotation="99.196 136.640 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.497 -1.724 -6.111" 
+              rotation="125.066 -86.751 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.408 -3.740 -8.400" 
+              rotation="134.709 -167.005 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.753 -2.953 -8.062" 
+              rotation="54.641 93.928 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.035 -1.246 -2.310" 
+              rotation="82.237 -73.160 0" radius="0.07" height="1.066" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.810 -1.942 -2.592" 
+              rotation="154.398 115.665 0" radius="0.07" height="1.384" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.673 7.632 2.041" 
+              rotation="117.870 -106.606 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.050 8.349 2.799" 
+              rotation="56.196 2.907 0" radius="0.07" height="1.400" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.626 2.794 -0.847" 
+              rotation="75.771 158.552 0" radius="0.07" height="1.086" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.789 2.804 0.220" 
+              rotation="78.040 31.602 0" radius="0.07" height="1.385" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.629 3.196 0.779" 
+              rotation="62.888 92.184 0" radius="0.07" height="1.091" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.866 2.779 1.411" 
+              rotation="104.040 -24.321 0" radius="0.07" height="1.389" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.314 7.041 1.392" 
+              rotation="119.050 -174.253 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.820 7.345 2.288" 
+              rotation="86.676 -52.604 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.864 2.732 2.483" 
+              rotation="77.187 30.982 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.832 -2.624 -8.509" 
+              rotation="97.966 139.134 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.080 -2.047 -7.625" 
+              rotation="44.163 12.510 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.767 1.043 -3.600" 
+              rotation="105.443 -18.851 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.545 1.084 -4.657" 
+              rotation="98.559 -145.207 0" radius="0.07" height="1.384" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.261 4.769 -0.015" 
+              rotation="147.626 -79.851 0" radius="0.07" height="1.102" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.309 5.224 -0.394" 
+              rotation="90.815 116.339 0" radius="0.07" height="1.476" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.099 1.788 3.925" 
+              rotation="105.071 -147.578 0" radius="0.07" height="1.285" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.187 1.811 5.063" 
+              rotation="102.313 -21.721 0" radius="0.07" height="1.355" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.283 1.359 3.424" 
+              rotation="118.446 -87.279 0" radius="0.07" height="1.102" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.239 5.158 -2.269" 
+              rotation="92.318 111.251 0" radius="0.07" height="1.063" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.479 5.789 -1.881" 
+              rotation="28.384 -53.513 0" radius="0.07" height="1.387" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.688 5.812 -0.848" 
+              rotation="30.892 110.584 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.731 -6.030 -1.984" 
+              rotation="88.130 -51.871 0" radius="0.07" height="1.011" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.478 -5.487 -2.459" 
+              rotation="34.568 115.071 0" radius="0.07" height="1.360" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.430 -6.661 -2.430" 
+              rotation="151.753 114.042 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.562 1.340 5.744" 
+              rotation="130.285 -80.134 0" radius="0.07" height="1.010" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.324 1.854 6.232" 
+              rotation="74.388 34.647 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.506 -9.727 -1.367" 
+              rotation="96.971 -93.027 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.347 -9.119 -1.662" 
+              rotation="39.235 136.924 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.439 -10.132 -1.004" 
+              rotation="132.343 49.669 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.527 -1.489 -3.833" 
+              rotation="92.839 113.199 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.687 -2.049 -3.459" 
+              rotation="147.428 -64.766 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.726 -0.849 -3.486" 
+              rotation="28.213 -66.241 0" radius="0.07" height="1.391" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.784 0.552 10.342" 
+              rotation="93.652 100.246 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.681 0.929 10.015" 
+              rotation="61.551 -137.275 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.570 -4.353 -2.499" 
+              rotation="26.469 -64.287 0" radius="0.07" height="1.282" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.473 6.867 -1.788" 
+              rotation="30.819 111.649 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.619 6.405 -1.329" 
+              rotation="89.504 -59.143 0" radius="0.07" height="1.386" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.455 -2.016 -5.712" 
+              rotation="78.220 -46.484 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.463 2.034 8.033" 
+              rotation="59.533 -136.040 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.526 1.511 8.966" 
+              rotation="110.865 -23.695 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.470 1.680 8.229" 
+              rotation="96.509 101.632 0" radius="0.07" height="1.403" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.430 1.821 7.437" 
+              rotation="107.337 -23.034 0" radius="0.07" height="1.483" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.335 -8.229 -2.258" 
+              rotation="50.026 -131.050 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.347 -8.515 -1.979" 
+              rotation="84.843 89.507 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.696 -3.172 -2.548" 
+              rotation="145.239 -65.657 0" radius="0.07" height="1.477" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.714 -2.601 -3.010" 
+              rotation="92.918 114.468 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.528 -10.554 -0.689" 
+              rotation="86.012 91.565 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.816 6.892 -0.811" 
+              rotation="28.773 -51.849 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.223 2.220 -5.410" 
+              rotation="70.346 91.635 0" radius="0.07" height="1.079" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.336 1.955 -5.974" 
+              rotation="96.884 -146.769 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.495 0.634 -5.151" 
+              rotation="118.002 -84.071 0" radius="0.07" height="1.480" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.412 1.163 -5.841" 
+              rotation="74.907 157.550 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.568 9.013 3.508" 
+              rotation="59.727 74.205 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.574 8.777 3.801" 
+              rotation="86.831 -52.743 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.798 0.278 10.588" 
+              rotation="114.915 41.595 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.736 0.760 9.624" 
+              rotation="68.815 155.854 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.303 0.110 -4.585" 
+              rotation="108.650 -17.586 0" radius="0.07" height="1.104" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.845 7.153 2.571" 
+              rotation="115.316 -106.610 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.330 7.747 3.308" 
+              rotation="58.874 4.263 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.740 1.343 9.685" 
+              rotation="81.429 -76.933 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.813 -3.723 -2.148" 
+              rotation="84.224 -65.560 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.578 1.306 8.559" 
+              rotation="114.877 42.091 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.108 9.121 4.673" 
+              rotation="55.882 2.479 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.706 8.462 4.064" 
+              rotation="120.493 -105.310 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.439 -8.942 -1.666" 
+              rotation="134.451 52.075 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.388 -7.864 -2.269" 
+              rotation="37.638 130.752 0" radius="0.07" height="1.485" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.581 -3.121 -3.403" 
+              rotation="152.208 114.156 0" radius="0.07" height="1.095" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.673 0.231 -3.426" 
+              rotation="29.026 106.265 0" radius="0.07" height="1.067" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.161 2.002 -7.041" 
+              rotation="76.106 157.284 0" radius="0.07" height="1.091" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.313 1.608 -6.508" 
+              rotation="112.204 -86.003 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.538 0.977 8.938" 
+              rotation="93.739 99.644 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.376 -9.400 -1.372" 
+              rotation="86.631 91.370 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.528 -9.969 -1.033" 
+              rotation="140.306 -43.091 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.273 -7.333 -2.846" 
+              rotation="95.386 117.489 0" radius="0.07" height="1.225" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.377 1.267 -6.920" 
+              rotation="98.133 -147.423 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.530 -10.890 -0.474" 
+              rotation="134.940 52.699 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.152 -0.689 3.231" 
+              rotation="38.491 -2.604 0" radius="0.07" height="2.404" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.889 -1.141 1.791" 
+              rotation="64.724 -131.928 0" radius="0.07" height="2.291" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.337 -2.126 3.185" 
+              rotation="115.297 48.068 0" radius="0.07" height="2.324" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.086 -2.540 1.761" 
+              rotation="141.539 177.424 0" radius="0.07" height="2.326" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.031 -2.557 4.694" 
+              rotation="101.234 -82.591 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.877 -2.045 4.060" 
+              rotation="56.683 162.022 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.737 0.741 3.868" 
+              rotation="43.420 103.766 0" radius="0.07" height="1.345" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.678 0.314 4.435" 
+              rotation="84.719 -47.114 0" radius="0.07" height="1.347" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.065 -3.759 6.078" 
+              rotation="64.051 161.253 0" radius="0.07" height="1.225" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.458 -0.292 0.565" 
+              rotation="57.794 159.326 0" radius="0.07" height="1.349" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.309 -0.776 1.232" 
+              rotation="100.636 -78.427 0" radius="0.07" height="1.349" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.527 -2.735 4.202" 
+              rotation="59.957 156.776 0" radius="0.07" height="1.011" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.695 -3.074 4.725" 
+              rotation="97.347 -79.653 0" radius="0.07" height="1.353" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.798 -3.239 5.080" 
+              rotation="111.135 42.976 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.519 6.235 6.669" 
+              rotation="95.625 135.632 0" radius="0.07" height="1.224" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.270 5.139 4.934" 
+              rotation="88.412 139.337 0" radius="0.07" height="1.010" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.566 4.677 5.342" 
+              rotation="131.458 -87.174 0" radius="0.07" height="1.353" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.076 5.650 5.775" 
+              rotation="41.120 -2.126 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.909 -2.510 3.728" 
+              rotation="80.411 103.859 0" radius="0.07" height="1.351" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.739 -3.021 4.397" 
+              rotation="126.324 -19.789 0" radius="0.07" height="1.345" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.910 2.472 -4.888" 
+              rotation="78.027 98.692 0" radius="0.07" height="1.224" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.598 -2.917 4.445" 
+              rotation="67.644 -132.502 0" radius="0.07" height="1.280" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.082 3.742 4.952" 
+              rotation="139.522 -178.621 0" radius="0.07" height="1.280" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.923 1.143 3.380" 
+              rotation="99.342 136.040 0" radius="0.07" height="1.066" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.252 1.766 4.194" 
+              rotation="39.140 4.791 0" radius="0.07" height="1.385" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.411 6.704 6.112" 
+              rotation="44.476 103.541 0" radius="0.07" height="1.481" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.959 -3.371 5.414" 
+              rotation="80.678 101.241 0" radius="0.07" height="1.482" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.605 -3.457 0.535" 
+              rotation="90.553 138.338 0" radius="0.07" height="1.348" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.536 -3.914 1.103" 
+              rotation="133.567 -82.394 0" radius="0.07" height="1.345" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.726 0.281 -0.434" 
+              rotation="107.927 45.276 0" radius="0.07" height="1.391" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.873 0.372 -0.778" 
+              rotation="100.145 -79.777 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.980 0.843 -1.516" 
+              rotation="61.961 160.650 0" radius="0.07" height="1.481" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.728 0.133 -0.048" 
+              rotation="83.006 98.563 0" radius="0.07" height="1.076" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.102 -2.609 5.423" 
+              rotation="83.289 -22.047 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.960 -2.941 4.267" 
+              rotation="110.990 -141.998 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.909 -3.684 3.597" 
+              rotation="113.757 -142.818 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.942 -3.358 4.632" 
+              rotation="81.180 -22.623 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.883 -3.329 3.872" 
+              rotation="78.692 100.088 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.996 -6.541 -8.983" 
+              rotation="90.458 -29.637 0" radius="0.07" height="1.377" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.791 -6.029 -9.680" 
+              rotation="42.492 102.181 0" radius="0.07" height="1.375" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.165 -2.362 6.471" 
+              rotation="72.257 38.505 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.169 -2.668 6.189" 
+              rotation="101.570 -79.553 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.084 9.790 5.102" 
+              rotation="139.850 -66.818 0" radius="0.07" height="1.375" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.877 10.237 4.363" 
+              rotation="96.554 145.705 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.759 5.642 -8.568" 
+              rotation="130.911 -22.149 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.889 6.210 -9.124" 
+              rotation="80.170 96.308 0" radius="0.07" height="1.376" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.830 -3.040 -0.011" 
+              rotation="37.900 97.319 0" radius="0.07" height="1.073" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.172 -3.979 -0.435" 
+              rotation="137.815 -178.220 0" radius="0.07" height="1.390" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.580 7.075 5.831" 
+              rotation="102.941 103.457 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.704 7.898 6.008" 
+              rotation="17.726 -85.281 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.081 -1.161 1.822" 
+              rotation="118.830 -15.064 0" radius="0.07" height="1.080" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.447 -0.670 0.929" 
+              rotation="70.616 -131.782 0" radius="0.07" height="1.389" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.464 -0.527 0.590" 
+              rotation="99.238 -79.505 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.742 -0.095 -0.082" 
+              rotation="60.365 161.415 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.430 6.409 5.705" 
+              rotation="159.763 80.036 0" radius="0.07" height="1.086" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.686 7.430 5.496" 
+              rotation="42.898 111.734 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.934 0.422 -1.006" 
+              rotation="71.646 -132.311 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.299 -2.749 6.817" 
+              rotation="83.776 -21.467 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.086 -3.029 5.792" 
+              rotation="108.466 -141.765 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.162 -2.064 3.158" 
+              rotation="51.649 166.227 0" radius="0.07" height="1.077" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.239 -2.653 3.972" 
+              rotation="111.641 51.146 0" radius="0.07" height="1.386" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.702 3.178 4.154" 
+              rotation="98.023 134.370 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.654 2.779 4.583" 
+              rotation="130.192 -85.266 0" radius="0.07" height="1.475" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.212 1.377 -2.551" 
+              rotation="106.816 47.014 0" radius="0.07" height="1.282" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.480 1.884 -3.540" 
+              rotation="61.744 162.337 0" radius="0.07" height="1.358" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.225 1.280 -2.216" 
+              rotation="80.766 98.770 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.580 0.030 4.890" 
+              rotation="130.133 -90.209 0" radius="0.07" height="1.075" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.176 0.926 5.317" 
+              rotation="37.756 -0.943 0" radius="0.07" height="1.390" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.698 2.366 5.129" 
+              rotation="84.819 -43.980 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.147 -5.229 -4.042" 
+              rotation="44.715 108.537 0" radius="0.07" height="1.010" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.903 -5.544 -3.396" 
+              rotation="86.325 -38.164 0" radius="0.07" height="1.357" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.591 -6.118 -4.371" 
+              rotation="139.395 -166.392 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.833 2.389 -4.181" 
+              rotation="68.639 98.742 0" radius="0.07" height="1.010" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.808 2.402 -4.544" 
+              rotation="73.615 -130.430 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.810 -6.224 -7.128" 
+              rotation="80.954 87.439 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.899 -6.331 -6.562" 
+              rotation="91.762 -32.440 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.965 -6.428 -7.768" 
+              rotation="99.750 -153.379 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.468 -5.817 0.312" 
+              rotation="135.231 -82.968 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.624 -5.460 -0.253" 
+              rotation="92.470 138.206 0" radius="0.07" height="1.392" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.053 -4.904 0.716" 
+              rotation="40.691 4.311 0" radius="0.07" height="1.387" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.530 5.349 -7.723" 
+              rotation="76.921 -57.642 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.631 4.581 -7.982" 
+              rotation="150.789 72.070 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.277 -5.013 -2.449" 
+              rotation="40.535 6.128 0" radius="0.07" height="1.283" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.574 1.535 6.117" 
+              rotation="83.680 -46.197 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.682 1.952 5.686" 
+              rotation="46.615 96.428 0" radius="0.07" height="1.389" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.777 -3.300 3.266" 
+              rotation="101.453 155.743 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.509 2.625 -6.817" 
+              rotation="151.980 76.155 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.531 3.538 -7.377" 
+              rotation="51.646 155.751 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-5.314 3.279 -6.492" 
+              rotation="75.577 -55.326 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.095 3.026 -5.542" 
+              rotation="54.832 158.409 0" radius="0.07" height="1.483" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.779 -6.282 -5.499" 
+              rotation="82.529 28.377 0" radius="0.07" height="1.084" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.840 -6.502 -6.000" 
+              rotation="102.319 -92.386 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.709 -4.510 -1.468" 
+              rotation="91.238 139.902 0" radius="0.07" height="1.481" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.673 -4.992 -0.837" 
+              rotation="135.387 -82.398 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.981 -6.722 -8.409" 
+              rotation="104.575 -92.080 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.168 2.850 5.980" 
+              rotation="39.797 2.042 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.440 -3.551 4.968" 
+              rotation="104.150 -83.284 0" radius="0.07" height="1.076" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.436 -3.694 5.321" 
+              rotation="113.239 49.608 0" radius="0.07" height="1.389" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.451 -2.791 4.211" 
+              rotation="80.850 103.112 0" radius="0.07" height="1.478" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.564 -3.304 4.925" 
+              rotation="124.432 -17.837 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.017 8.689 6.174" 
+              rotation="76.675 -73.668 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.934 9.072 5.846" 
+              rotation="43.161 112.047 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.376 5.967 -7.466" 
+              rotation="32.391 -111.510 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.336 5.072 -6.864" 
+              rotation="128.510 -25.112 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.292 -2.390 3.590" 
+              rotation="59.100 164.071 0" radius="0.07" height="1.104" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.649 7.828 5.218" 
+              rotation="102.057 101.067 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.902 8.603 5.298" 
+              rotation="18.907 -95.572 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.892 3.823 -8.197" 
+              rotation="105.793 127.702 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.856 -4.126 -2.084" 
+              rotation="43.505 97.425 0" radius="0.07" height="1.102" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-6.220 4.045 -6.237" 
+              rotation="32.146 -110.700 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.213 10.100 5.681" 
+              rotation="17.480 -85.091 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.026 9.422 5.472" 
+              rotation="103.095 106.728 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.144 -6.802 -6.643" 
+              rotation="102.372 -153.978 0" radius="0.07" height="1.400" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.271 -6.650 -5.421" 
+              rotation="89.884 -35.080 0" radius="0.07" height="1.486" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.187 -5.904 -1.130" 
+              rotation="139.071 -175.767 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-4.354 -4.333 1.585" 
+              rotation="85.248 -38.743 0" radius="0.07" height="1.074" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.085 -4.295 6.149" 
+              rotation="126.916 -18.040 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.281 -3.833 5.604" 
+              rotation="78.837 101.038 0" radius="0.07" height="1.390" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-7.019 4.764 -6.090" 
+              rotation="76.567 -58.276 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.969 -7.094 -7.284" 
+              rotation="105.168 -92.835 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.069 -6.925 -7.846" 
+              rotation="87.784 147.437 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.155 -7.052 -4.748" 
+              rotation="131.153 -81.896 0" radius="0.07" height="1.225" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.773 -3.918 5.796" 
+              rotation="113.608 50.048 0" radius="0.07" height="1.096" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.075 -7.021 -8.911" 
+              rotation="103.050 -154.135 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.366 6.369 -6.365" 
+              rotation="38.654 -0.632 0" radius="0.07" height="2.322" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.159 4.948 -6.373" 
+              rotation="115.801 47.630 0" radius="0.07" height="2.362" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.598 5.970 -7.798" 
+              rotation="64.191 -132.376 0" radius="0.07" height="2.334" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.382 4.511 -7.850" 
+              rotation="141.368 179.397 0" radius="0.07" height="2.435" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.861 7.265 -5.180" 
+              rotation="90.846 -47.245 0" radius="0.07" height="1.354" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.790 7.789 -5.695" 
+              rotation="40.333 97.247 0" radius="0.07" height="1.347" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.051 7.505 -10.461" 
+              rotation="119.151 -15.387 0" radius="0.07" height="1.226" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.731 4.074 -5.128" 
+              rotation="122.255 -21.979 0" radius="0.07" height="1.349" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="11.598 4.512 -5.806" 
+              rotation="83.358 102.854 0" radius="0.07" height="1.349" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.720 6.437 -8.648" 
+              rotation="122.475 -18.733 0" radius="0.07" height="1.008" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.510 6.829 -9.194" 
+              rotation="79.664 102.343 0" radius="0.07" height="1.360" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="1.383 6.957 -9.498" 
+              rotation="69.046 -133.321 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.360 10.269 0.402" 
+              rotation="123.725 -91.011 0" radius="0.07" height="1.227" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.139 8.745 -0.629" 
+              rotation="122.742 -90.135 0" radius="0.07" height="1.006" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.010 8.990 -1.136" 
+              rotation="92.282 138.560 0" radius="0.07" height="1.356" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.706 9.473 -0.117" 
+              rotation="49.346 15.753 0" radius="0.07" height="1.398" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.178 6.361 -8.335" 
+              rotation="99.959 -75.130 0" radius="0.07" height="1.353" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.995 6.880 -9.016" 
+              rotation="53.284 161.279 0" radius="0.07" height="1.345" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="13.026 0.615 0.028" 
+              rotation="92.293 -79.168 0" radius="0.07" height="1.225" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.628 6.711 -8.963" 
+              rotation="111.987 51.167 0" radius="0.07" height="1.285" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.405 8.543 -2.126" 
+              rotation="130.894 -173.666 0" radius="0.07" height="1.283" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.009 6.851 -4.749" 
+              rotation="138.606 -94.510 0" radius="0.07" height="1.077" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.377 7.707 -4.194" 
+              rotation="49.363 1.414 0" radius="0.07" height="1.388" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.380 9.957 0.969" 
+              rotation="87.805 -39.213 0" radius="0.07" height="1.488" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="0.198 7.051 -9.795" 
+              rotation="102.041 -78.087 0" radius="0.07" height="1.486" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.894 3.109 -8.518" 
+              rotation="131.829 -79.492 0" radius="0.07" height="1.354" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.830 3.513 -9.116" 
+              rotation="94.007 138.959 0" radius="0.07" height="1.345" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.980 3.407 -4.180" 
+              rotation="63.793 -132.206 0" radius="0.07" height="1.390" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.121 3.157 -3.910" 
+              rotation="85.354 102.417 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="11.213 2.749 -3.149" 
+              rotation="118.300 -20.489 0" radius="0.07" height="1.483" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.993 3.716 -4.489" 
+              rotation="89.786 -78.166 0" radius="0.07" height="1.073" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.960 6.307 -9.846" 
+              rotation="91.646 158.466 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.804 6.511 -8.663" 
+              rotation="74.808 37.514 0" radius="0.07" height="1.400" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.730 7.145 -7.934" 
+              rotation="71.348 36.535 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.775 6.934 -8.996" 
+              rotation="93.068 158.054 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.714 6.833 -8.237" 
+              rotation="101.400 -80.785 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-3.031 6.174 -10.914" 
+              rotation="102.028 -142.130 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.030 6.429 -10.605" 
+              rotation="78.266 99.387 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.020 2.766 -8.061" 
+              rotation="78.281 -46.002 0" radius="0.07" height="1.073" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.362 2.091 -8.828" 
+              rotation="144.532 -174.883 0" radius="0.07" height="1.391" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.218 9.894 1.479" 
+              rotation="97.504 -95.452 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.181 10.135 2.175" 
+              rotation="77.706 23.314 0" radius="0.07" height="1.404" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.391 4.902 -6.371" 
+              rotation="54.633 161.359 0" radius="0.07" height="1.078" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.729 4.277 -5.558" 
+              rotation="116.784 50.324 0" radius="0.07" height="1.391" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="13.738 4.017 -5.274" 
+              rotation="84.375 101.900 0" radius="0.07" height="1.092" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="13.003 3.588 -4.611" 
+              rotation="122.555 -20.271 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.297 9.737 0.927" 
+              rotation="96.943 -154.745 0" radius="0.07" height="1.084" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.115 9.847 1.978" 
+              rotation="86.318 -36.100 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="13.178 2.978 -3.742" 
+              rotation="115.442 49.927 0" radius="0.07" height="1.094" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-1.163 6.567 -11.227" 
+              rotation="90.473 159.389 0" radius="0.07" height="1.091" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-0.934 6.734 -10.181" 
+              rotation="76.590 38.148 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.448 5.911 -7.750" 
+              rotation="128.222 -11.735 0" radius="0.07" height="1.076" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.018 6.502 -8.550" 
+              rotation="68.177 -126.861 0" radius="0.07" height="1.388" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.938 7.761 -2.648" 
+              rotation="131.065 -95.594 0" radius="0.07" height="1.102" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.871 8.141 -3.138" 
+              rotation="88.610 135.601 0" radius="0.07" height="1.484" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="11.420 2.118 -2.157" 
+              rotation="64.218 -131.181 0" radius="0.07" height="1.285" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="11.652 1.517 -1.212" 
+              rotation="118.156 -19.885 0" radius="0.07" height="1.361" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.445 2.386 -2.427" 
+              rotation="91.195 -78.384 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.585 8.315 -6.149" 
+              rotation="88.619 137.819 0" radius="0.07" height="1.079" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.231 8.788 -5.251" 
+              rotation="45.761 0.919 0" radius="0.07" height="1.392" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.867 8.669 -3.678" 
+              rotation="43.092 91.261 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.827 -1.351 -9.319" 
+              rotation="85.557 -43.103 0" radius="0.07" height="1.007" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.675 -0.939 -9.751" 
+              rotation="48.494 97.327 0" radius="0.07" height="1.361" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.184 -1.950 -10.101" 
+              rotation="143.435 178.070 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.959 1.117 -0.553" 
+              rotation="99.020 -78.995 0" radius="0.07" height="1.008" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="11.936 0.893 -0.252" 
+              rotation="115.738 51.006 0" radius="0.07" height="1.396" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="2.344 -4.045 -9.675" 
+              rotation="76.057 -81.609 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.342 -3.676 -9.871" 
+              rotation="44.495 104.093 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.055 -4.849 -9.765" 
+              rotation="164.239 93.924 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.611 2.281 -10.840" 
+              rotation="96.361 137.016 0" radius="0.07" height="1.092" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.756 1.851 -10.341" 
+              rotation="134.708 -78.168 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.256 2.904 -10.032" 
+              rotation="36.139 2.093 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="11.588 -1.896 3.128" 
+              rotation="109.184 125.851 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.753 -1.052 3.369" 
+              rotation="28.550 -115.607 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.198 0.033 -9.440" 
+              rotation="35.847 2.665 0" radius="0.07" height="1.285" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.599 9.683 -4.769" 
+              rotation="41.389 92.621 0" radius="0.07" height="1.092" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.791 9.226 -4.221" 
+              rotation="93.868 -40.069 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="-2.607 6.756 -7.632" 
+              rotation="83.496 -23.429 0" radius="0.07" height="1.086" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.670 0.799 2.035" 
+              rotation="25.072 -111.987 0" radius="0.07" height="1.084" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.667 -0.065 2.673" 
+              rotation="122.209 -21.343 0" radius="0.07" height="1.400" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="11.404 0.067 1.719" 
+              rotation="110.103 127.627 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.175 0.208 0.730" 
+              rotation="120.918 -23.028 0" radius="0.07" height="1.487" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.658 -2.659 -10.012" 
+              rotation="17.310 -97.653 0" radius="0.07" height="1.085" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.482 -3.355 -10.128" 
+              rotation="104.708 101.699 0" radius="0.07" height="1.402" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.771 1.039 -9.147" 
+              rotation="130.836 -81.494 0" radius="0.07" height="1.483" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.799 1.443 -9.735" 
+              rotation="96.718 136.874 0" radius="0.07" height="1.393" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.898 -5.700 -9.941" 
+              rotation="104.844 104.005 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.361 9.558 -3.294" 
+              rotation="46.249 2.464 0" radius="0.07" height="1.095" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="8.685 7.404 -9.612" 
+              rotation="76.892 99.336 0" radius="0.07" height="1.076" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.665 7.568 -9.916" 
+              rotation="65.770 -127.745 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.797 6.615 -8.763" 
+              rotation="101.287 -76.184 0" radius="0.07" height="1.482" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.665 7.170 -9.477" 
+              rotation="53.997 163.315 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.986 10.381 2.861" 
+              rotation="79.749 84.061 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.041 10.330 3.366" 
+              rotation="86.217 -36.260 0" radius="0.07" height="1.395" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.377 -2.587 2.875" 
+              rotation="148.125 62.455 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.340 -1.752 2.193" 
+              rotation="57.772 158.298 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.985 6.161 -8.146" 
+              rotation="124.131 -13.488 0" radius="0.07" height="1.103" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.162 9.855 2.493" 
+              rotation="93.952 -95.338 0" radius="0.07" height="1.088" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="3.982 10.025 3.171" 
+              rotation="79.042 24.009 0" radius="0.07" height="1.399" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.071 -0.239 3.557" 
+              rotation="68.519 -48.889 0" radius="0.07" height="1.087" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.832 0.655 -8.680" 
+              rotation="79.464 -45.000 0" radius="0.07" height="1.105" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.242 -0.777 1.481" 
+              rotation="149.427 62.680 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.842 10.510 4.411" 
+              rotation="75.809 23.676 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.946 10.267 3.863" 
+              rotation="99.015 -95.387 0" radius="0.07" height="1.391" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.324 -4.209 -10.306" 
+              rotation="164.850 102.783 0" radius="0.07" height="1.401" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.672 -3.022 -10.391" 
+              rotation="46.621 103.419 0" radius="0.07" height="1.488" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="9.261 0.923 -10.568" 
+              rotation="143.115 -178.082 0" radius="0.07" height="1.095" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="10.663 3.829 -9.675" 
+              rotation="47.463 97.772 0" radius="0.07" height="1.074" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="7.290 8.189 -10.717" 
+              rotation="52.203 162.804 0" radius="0.07" height="1.092" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.495 7.717 -10.161" 
+              rotation="101.338 -77.876 0" radius="0.07" height="1.394" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="12.984 -1.556 1.353" 
+              rotation="108.901 124.368 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.011 -5.029 -10.483" 
+              rotation="105.313 104.988 0" radius="0.07" height="1.090" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.027 -5.382 -10.225" 
+              rotation="135.361 -75.666 0" radius="0.07" height="1.397" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="6.620 -2.608 -10.949" 
+              rotation="99.166 135.637 0" radius="0.07" height="1.224" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="5.435 7.804 -10.328" 
+              rotation="65.902 -128.418 0" radius="0.07" height="1.095" color="#D3D3D3"></a-cylinder>
+  <a-cylinder position="4.690 -6.404 -10.146" 
+              rotation="164.622 107.117 0" radius="0.07" height="1.089" color="#D3D3D3"></a-cylinder>
+</a-entity>
+		  
+
+
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+      const ui = document.getElementById('ui-container');
+      const panel = document.getElementById('info-panel');
+      const btn = document.getElementById('reveal-btn');
+      const marker = document.getElementById('marker-catenane');
+
+      marker.addEventListener('markerFound', () => {
+        ui.style.display = 'block';
+        panel.style.display = 'none';
+        btn.innerText = "🔍 ANALIZAR ESTRUCTURA";
+      });
+
+      marker.addEventListener('markerLost', () => {
+        ui.style.display = 'none';
+      });
+
+      btn.addEventListener('click', () => {
+        const isHidden = panel.style.display === 'none';
+        panel.style.display = isHidden ? 'block' : 'none';
+        btn.innerText = isHidden ? "❌ CERRAR INFO" : "🔍 ANALIZAR ESTRUCTURA";
+      });
+    </script>
+  </body>
+</html>
